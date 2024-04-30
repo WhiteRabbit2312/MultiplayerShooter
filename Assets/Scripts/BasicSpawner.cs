@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     private NetworkRunner _runner;
+    [SerializeField] private string _sceneName;
+    private PlayerRef _playerRef;
 
     public async void StartGame(GameMode mode)
     {
@@ -30,9 +32,14 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         {
             GameMode = mode,
             SessionName = "TestRoom",
-            Scene = scene,
+            Scene = SceneRef.FromIndex(1),
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
+        
+        if (_runner.IsServer)
+        {
+            //_runner.LoadScene(_sceneName);
+        }
 
         //_runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnInputTest);
     }
@@ -47,22 +54,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         StartGame(GameMode.Client);
     }
 
-    private void OnGUI()
-    {
-        /*
-        if (_runner == null)
-        {
-            if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
-            {
-                StartGame(GameMode.Host);
-            }
-            if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
-            {
-                StartGame(GameMode.Client);
-            }
-        }*/
-    }
-
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
@@ -71,7 +62,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             // Create a unique position for the player
-            Vector3 spawnPosition = new Vector3(0, 0, 0);//
+            Vector3 spawnPosition = new Vector3(-6f, 0, 0);//
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);
@@ -98,7 +89,10 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
-    public void OnSceneLoadDone(NetworkRunner runner) { }
+    public void OnSceneLoadDone(NetworkRunner runner) 
+    {
+        
+    }
     public void OnSceneLoadStart(NetworkRunner runner) { }
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player) { }

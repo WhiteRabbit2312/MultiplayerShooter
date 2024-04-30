@@ -4,15 +4,18 @@ using TMPro;
 
 public class PlayerInput : NetworkBehaviour
 {
+    [SerializeField] private Sprite[] _skin;
     [Networked]
     public bool spawnedProjectile { get; set; }
     public override void Spawned()
     {
         Debug.Log("PlayerSpawned");
-        Runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnInputTest);
+        Runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnInputLeftStick);
+        //int _skinIdx = PlayerPrefs.GetInt("Skin");
+        //gameObject.GetComponent<SpriteRenderer>().sprite = _skin[_skinIdx];
     }
 
-    public void OnInputTest(NetworkRunner runner, NetworkInput input)
+    public void OnInputLeftStick(NetworkRunner runner, NetworkInput input)
     {
         var data = new NetworkInputData();
         
@@ -45,5 +48,15 @@ public class PlayerInput : NetworkBehaviour
             
 
         input.Set(data);
+    }
+
+    public void OnInputRightStick()
+    {
+
+    }
+
+    private void SpawnWeapon()
+    {
+
     }
 }

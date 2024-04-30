@@ -9,6 +9,7 @@ public class PlayerGetInput : NetworkBehaviour
     {
         if (GetInput(out NetworkInputData data))
         {
+            Debug.Log("Can move");
             if (data.direction.sqrMagnitude > 0)
             {
                 Debug.Log("Data is 0" + data.direction.sqrMagnitude);
