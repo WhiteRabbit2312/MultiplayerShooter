@@ -31,7 +31,7 @@ public class SkinPanel : MonoBehaviour
             item.GetComponent<Image>().color = new Color(1, 1, 1);
         }
         skin[skinIdx].GetComponent<Image>().color = Color.green;
-        //PlayerPrefs.SetInt("Skin", skinIdx);
+        PlayerPrefs.SetInt("Skin", skinIdx);
 
         Debug.Log("Selected skin: " + skin[skinIdx]);
     }

@@ -250,6 +250,7 @@ MonoBehaviour:
   - {fileID: 381631601, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
   - {fileID: 1450094454, guid: 8f7a60065e3984c489b9c4d41bc3dc4e, type: 3}
   - {fileID: 1684076649, guid: 57a1443e67528144aa07582927559650, type: 3}
+  _playerSprite: {fileID: 4351309429388637090}
   _spawnedProjectile: 0
 --- !u!114 &1627185523803964209
 MonoBehaviour:
@@ -369,7 +370,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 1997828774, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
