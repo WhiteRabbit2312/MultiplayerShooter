@@ -23,25 +23,6 @@ namespace SecondTraineeGame
             if (!Object.HasStateAuthority)
                 RPC_SendMessagReady();
         }
-        /*
-        public override void Render()
-        {
-            foreach (var change in _changeDetector.DetectChanges(this))
-            {
-                switch (change)
-                {
-                    case nameof(weaponType):
-                        if (Runner.IsServer)
-                        {
-                            weaponType = Random.Range(0, _weaponCount); 
-                        }
-                        break;
-
-                }
-            }
-        }
-        */
-
 
         [Rpc(RpcSources.All, RpcTargets.All)]
         public void RPC_SendMessagReady()
