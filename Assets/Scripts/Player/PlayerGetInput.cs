@@ -11,19 +11,7 @@ public class PlayerGetInput : NetworkBehaviour
     {
         if (GetInput(out NetworkInputData data))
         {
-            Debug.Log("Can move");
-            if(true)//if (data.direction.sqrMagnitude > 0)
-            {
-                Debug.Log("Data is 0" + data.direction.sqrMagnitude);
-                transform.Translate(data.direction * _speed);
-                //transform.position += data.direction * 0.1f;
-            }
-                
-
-            else
-            {
-                Debug.Log("Data is 0" + data.direction.sqrMagnitude);
-            }
+            transform.Translate(data.direction * _speed);
         }
     }
 }

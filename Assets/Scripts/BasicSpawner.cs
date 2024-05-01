@@ -35,13 +35,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             Scene = SceneRef.FromIndex(1),
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
-        
-        if (_runner.IsServer)
-        {
-            //_runner.LoadScene(_sceneName);
-        }
-
-        //_runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnInputTest);
     }
 
     public void HostButton()
@@ -62,7 +55,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             // Create a unique position for the player
-            Vector3 spawnPosition = new Vector3(-6f, 0, 0);//
+            Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 0, 0);//
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);

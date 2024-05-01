@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1085665657347541526}
-  - component: {fileID: 5171727269314909424}
   - component: {fileID: 7879160561334553423}
+  - component: {fileID: 9041056152450459534}
   m_Layer: 0
   m_Name: BigEnemy
   m_TagString: Untagged
@@ -34,18 +34,6 @@ Transform:
   - {fileID: 7378805598893858920}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5171727269314909424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392722798578127165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95e84343947117d45897878bd08cf047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7879160561334553423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,8 +50,19 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 5171727269314909424}
+  NetworkedBehaviours: []
+--- !u!114 &9041056152450459534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392722798578127165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0b359ccc8330145be9401b6e229b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1794207651226618210
 GameObject:
   m_ObjectHideFlags: 0

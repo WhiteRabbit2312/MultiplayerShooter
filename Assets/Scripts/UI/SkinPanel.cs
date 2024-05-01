@@ -28,9 +28,10 @@ public class SkinPanel : MonoBehaviour
     {
         foreach(var item in skin)
         {
-            item.GetComponent<Image>().color = new Color(1, 1, 1);
+            //item.GetComponent<Image>().color = new Color(1, 1, 1);
+            item.GetComponent<Animator>().Play("Idle");
         }
-        skin[skinIdx].GetComponent<Image>().color = Color.green;
+        skin[skinIdx].GetComponent<Animator>().Play("Go");
         PlayerPrefs.SetInt("Skin", skinIdx);
 
         Debug.Log("Selected skin: " + skin[skinIdx]);

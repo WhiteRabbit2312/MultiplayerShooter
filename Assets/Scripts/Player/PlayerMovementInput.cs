@@ -11,9 +11,7 @@ public class PlayerMovementInput : NetworkBehaviour
     public override void Spawned()
     {
         Runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnInputLeftStick);
-
     }
-
    
     public void OnInputLeftStick(NetworkRunner runner, NetworkInput input)
     {
