@@ -9,6 +9,7 @@ TagManager:
   - AidKit
   - Bomb
   - AmmoBox
+  - SkeletonEnemy
   layers:
   - Default
   - TransparentFX

@@ -19,16 +19,8 @@ public class Enemy : NetworkBehaviour
         //Runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnEnemyMove);
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(_objectTransform.position, _radius);
-    }
-
     public override void FixedUpdateNetwork()
     {
-        Debug.Log("Enemy transform" + transform.position);
-
         if (!HasStateAuthority)
         {
             Debug.Log("HasStateAuthority");
@@ -46,15 +38,17 @@ public class Enemy : NetworkBehaviour
 
         if (_objectTransform != null)
         {
-            transform.position += _objectTransform.position * _speed;//not initialize
+            //transform.position += _objectTransform.position * _speed;//not initialize
         }
         else
         {
-            transform.position += new Vector3(0, 0, 0) * _speed;
+            transform.Translate(new Vector3(0, 0, 0) * _speed);
         }
 
     }
     
+
+
     /*
     public void OnEnemyMove(NetworkRunner runner, NetworkInput input)
     {

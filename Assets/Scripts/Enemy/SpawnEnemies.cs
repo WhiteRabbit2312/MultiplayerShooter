@@ -7,7 +7,7 @@ public class SpawnEnemies : NetworkBehaviour
 {
     [SerializeField] private Enemy[] enemyArray;
 
-    private float _timer = 0;
+    private int _timer = 0;
     private IEnemyFactory _enemy;
     private int _enemyNumber = 3;
 
@@ -27,7 +27,7 @@ public class SpawnEnemies : NetworkBehaviour
         if (Runner.IsServer)
         {
             _timer++;
-            if (_timer >= 200)
+            if (_timer == 200)
             {
                 //separate to another method SPAWN etc.
                 int randomEnemy = Random.Range(0, _enemyNumber);
