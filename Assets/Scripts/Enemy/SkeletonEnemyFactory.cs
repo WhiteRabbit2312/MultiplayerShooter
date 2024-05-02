@@ -14,12 +14,13 @@ public class SkeletonEnemyFactory : NetworkBehaviour, IEnemyFactory
         _spawnedEnemy = spawnedEnemy;
         _networkObject = _spawnedEnemy.GetComponent<NetworkObject>();
     }
+    //TODO: не використовувати networkObject для спавну
 
-    public void SpawnedEnemy()
+    public NetworkObject SpawnEnemy()
     {
         Debug.Log("Skeleton enemy network obj" + _networkObject);
         if (Runner == null)
             Debug.LogError("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!");
-        Runner.Spawn(_networkObject, _spawnPosition, Quaternion.identity);
+        return Runner.Spawn(_networkObject, _spawnPosition, Quaternion.identity);
     }
 }

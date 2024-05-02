@@ -27,8 +27,9 @@ public class SpawnEnemies : NetworkBehaviour
         if (Runner.IsServer)
         {
             _timer++;
-            if (_timer == 60)
+            if (_timer >= 200)
             {
+                //separate to another method SPAWN etc.
                 int randomEnemy = Random.Range(0, _enemyNumber);
 
                 switch (randomEnemy)
@@ -40,7 +41,9 @@ public class SpawnEnemies : NetworkBehaviour
 
                 _enemy.Initialize(enemyArray[randomEnemy]);
                 Debug.Log(" Initialize Enemy: " + _enemy);
-                _enemy.SpawnedEnemy();
+                NetworkObject networObject = _enemy.SpawnEnemy();
+                //networObject.GetComponent<Enemy>().PlayerPositionToFollow = 0;
+                
                 
                 _timer = 0;
             }

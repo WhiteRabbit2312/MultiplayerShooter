@@ -15,9 +15,11 @@ public class BigEnemyFactory : NetworkBehaviour, IEnemyFactory
         _networkObject = _spawnedEnemy.GetComponent<NetworkObject>();
     }
 
-    public void SpawnedEnemy()
+
+    //TODO: не використовувати networkObject для спавну
+    public NetworkObject SpawnEnemy()
     {
         Debug.Log("Big enemy network obj" + _networkObject);
-        Runner.Spawn(_networkObject, _spawnPosition, Quaternion.identity);
+        return Runner.Spawn(_networkObject, _spawnPosition, Quaternion.identity);
     }
 }

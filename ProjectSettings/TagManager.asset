@@ -6,6 +6,9 @@ TagManager:
   tags:
   - SimpleEnemy
   - BigEnemy
+  - AidKit
+  - Bomb
+  - AmmoBox
   layers:
   - Default
   - TransparentFX

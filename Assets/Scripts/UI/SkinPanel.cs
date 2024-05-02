@@ -31,6 +31,7 @@ public class SkinPanel : MonoBehaviour
             //item.GetComponent<Image>().color = new Color(1, 1, 1);
             item.GetComponent<Animator>().Play("Idle");
         }
+        //TODO: винести string значення в константу або readonly
         skin[skinIdx].GetComponent<Animator>().Play("Go");
         PlayerPrefs.SetInt("Skin", skinIdx);
 

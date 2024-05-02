@@ -12,7 +12,6 @@ namespace SecondTraineeGame
         private int _weaponCount = 3;
         private SpriteRenderer _playerSprite;
         [Networked] private int weaponType { get; set; }
-        private ChangeDetector _changeDetector;
 
         private void Awake()
         {
@@ -29,9 +28,6 @@ namespace SecondTraineeGame
         {
             if (!Object.HasStateAuthority)
                 return;
-            _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
-
-
 
             weaponType = Random.Range(0, _weaponCount);
 

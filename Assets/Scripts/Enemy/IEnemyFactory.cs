@@ -5,6 +5,6 @@ using Fusion;
 
 public interface IEnemyFactory 
 {
-    public void SpawnedEnemy();
+    public NetworkObject SpawnEnemy(); //SpawnEnemy
     public void Initialize(Enemy enemy);
 }

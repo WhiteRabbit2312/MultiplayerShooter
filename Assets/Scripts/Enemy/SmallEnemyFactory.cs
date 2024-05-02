@@ -14,10 +14,11 @@ public class SmallEnemyFactory : NetworkBehaviour, IEnemyFactory
         _spawnedEnemy = spawnedEnemy;
         _networkObject = _spawnedEnemy.GetComponent<NetworkObject>();
     }
+    //TODO: не використовувати networkObject для спавну
 
-    public void SpawnedEnemy()
+    public NetworkObject SpawnEnemy()
     {
         Debug.Log("Small enemy network obj" + _networkObject);
-        Runner.Spawn(_networkObject, _spawnPosition, Quaternion.identity);
+        return Runner.Spawn(_networkObject, _spawnPosition, Quaternion.identity);
     }
 }
