@@ -7,9 +7,10 @@ public class PlayerDamage : NetworkBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "SimpleEnemy" || collision.tag == "BigEnemy" || collision.tag == "SkeletonEnemy")
+        if (collision.TryGetComponent(out Enemy enemy))
         {
-            Debug.LogWarning("Damage");
+            Debug.LogWarning("In collision");
+            PlayerStatChanged.OnHPChanged?.Invoke(enemy.Damage);
         }
     }
 }

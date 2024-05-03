@@ -5,46 +5,38 @@ using Fusion;
 
 public class Enemy : NetworkBehaviour
 {
-    [SerializeField] private int _damage;
+    public int Damage;
     [SerializeField] private float _speed;
-    private Vector2 _direction = Vector2.zero;
-    private float _radius = 5f;
+    private Transform _direction;
+    private float t = 0f;
 
-    private Transform _objectTransform;
-    //private NetworkEnemyData _networkEnemyData;
+    public void Init(List<Transform> transformList)
+    {
+        _direction = transformList[0];
+    }
 
     public override void Spawned()
     {
         if (!HasStateAuthority) return;
-        //Runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnEnemyMove);
     }
 
     public override void FixedUpdateNetwork()
     {
+        Debug.LogWarning("Fixed update enemy");
+
         if (!HasStateAuthority)
         {
             Debug.Log("HasStateAuthority");
             return;
         }
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
 
-
-        foreach (Collider collider in colliders)
+        t = Runner.DeltaTime * _speed;
+        transform.position = Vector3.Lerp(transform.position, _direction.position, t);
+        if(transform.position == _direction.position)
         {
-            _objectTransform = collider.GetComponent<Transform>();
-            
+            t = 0f;
         }
-
-        if (_objectTransform != null)
-        {
-            //transform.position += _objectTransform.position * _speed;//not initialize
-        }
-        else
-        {
-            transform.Translate(new Vector3(0, 0, 0) * _speed);
-        }
-
     }
     
 

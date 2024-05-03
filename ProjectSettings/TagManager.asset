@@ -10,6 +10,7 @@ TagManager:
   - Bomb
   - AmmoBox
   - SkeletonEnemy
+  - Bullet
   layers:
   - Default
   - TransparentFX

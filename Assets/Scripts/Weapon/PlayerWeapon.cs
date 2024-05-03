@@ -7,6 +7,8 @@ namespace SecondTraineeGame
 {
     public class PlayerWeapon : NetworkBehaviour
     {
+        [SerializeField] private GameObject[] _bullet;
+        [SerializeField] private Transform _weaponPoint;
         [SerializeField] private Sprite[] _weaponSprites;
         private Weapon _weapon;
         private int _weaponCount = 3;
@@ -44,6 +46,11 @@ namespace SecondTraineeGame
             _playerSprite.sprite = _weaponSprites[_weapon.WeaponType()];
 
             SetupSkinForEveryone();
+        }
+
+        public void Shoot()
+        {
+            _weapon.Fire(_bullet[_weapon.BulletType()], _weaponPoint);
         }
 
         private void SetupSkinForEveryone()

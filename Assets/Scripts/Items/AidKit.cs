@@ -11,7 +11,7 @@ public class AidKit : NetworkBehaviour, IItemEffect
     public void EnableEffect()
     {
         _hp = _fullHP;
-        Debug.LogWarning("HP" + _hp);
+        Debug.LogWarning("HP aid" + _hp);
         Runner.Despawn(Object);
     }
 }

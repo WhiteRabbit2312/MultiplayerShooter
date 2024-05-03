@@ -10,8 +10,6 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     private NetworkRunner _runner;
     [SerializeField] private string _sceneName;
-    private PlayerRef _playerRef;
-
     public async void StartGame(GameMode mode)
     {
         //gameObject.AddComponent<RunnerSimulatePhysics3D>();
@@ -48,7 +46,20 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     [SerializeField] private NetworkPrefabRef _playerPrefab;
-    private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+    private  Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+
+    public List<Transform> CharacterPosition
+    {
+        get
+        {
+            List<Transform> transPos = new List<Transform>();
+            foreach(var item in _spawnedCharacters)
+            {
+                transPos.Add(item.Value.transform);
+            }
+            return transPos;
+        }
+    }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
@@ -59,6 +70,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
             // Keep track of the player avatars for easy access
             _spawnedCharacters.Add(player, networkPlayerObject);
+
         }
     }
 

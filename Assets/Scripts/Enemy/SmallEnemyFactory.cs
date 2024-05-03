@@ -6,19 +6,19 @@ using Fusion;
 public class SmallEnemyFactory : NetworkBehaviour, IEnemyFactory
 {
     private Enemy _spawnedEnemy;
-    private NetworkObject _networkObject;
     private Vector2 _spawnPosition = new Vector2(-1, 1);
+    private BasicSpawner _basicSpawner;
 
     public void Initialize(Enemy spawnedEnemy)
     {
         _spawnedEnemy = spawnedEnemy;
-        _networkObject = _spawnedEnemy.GetComponent<NetworkObject>();
     }
     //TODO: не використовувати networkObject для спавну
 
-    public NetworkObject SpawnEnemy()
+    public void SpawnEnemy()
     {
-        Debug.Log("Small enemy network obj" + _networkObject);
-        return Runner.Spawn(_networkObject, _spawnPosition, Quaternion.identity);
+        Enemy spawnedEnemy = Runner.Spawn(_spawnedEnemy, _spawnPosition, Quaternion.identity);
+        _basicSpawner = GameObject.FindObjectOfType<BasicSpawner>();
+        spawnedEnemy.Init(_basicSpawner.CharacterPosition);
     }
 }

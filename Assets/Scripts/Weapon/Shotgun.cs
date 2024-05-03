@@ -13,16 +13,16 @@ namespace SecondTraineeGame {
             return _weaponTypeIdx;
         }
 
-        public override GameObject Bullet()
+        public override int BulletType()
         {
-            return _bullet[_bulletTypeIdx];
+            return _bulletTypeIdx;
         }
 
-        public override void Damage(GameObject bullet)
+        public override void Fire(GameObject bullet, Transform firePoint)
         {
             for(int i = 0; i < 3; ++i)
             {
-                Instantiate(bullet);
+                Runner.Spawn(bullet, firePoint.position, Quaternion.identity);
             }
         }
 
