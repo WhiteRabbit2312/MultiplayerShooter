@@ -21,7 +21,10 @@ namespace SecondTraineeGame
 
         public override void Fire(GameObject bullet, Transform firePoint)
         {
-            Runner.Spawn(bullet, firePoint.position, Quaternion.identity);
+            if (Runner == null)
+                Debug.LogWarning("Runner pistol is null");
+            else
+                Runner.Spawn(bullet, firePoint.position, Quaternion.identity);
         }
 
         public override int FireRange()

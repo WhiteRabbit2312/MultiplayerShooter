@@ -6,30 +6,27 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementInput : NetworkBehaviour
 {
-    [SerializeField] private InputActionReference _actionReference;
+    [SerializeField] private InputActionReference _actionReferenceLeftStick;
+    [SerializeField] private InputActionReference _actionReferenceRightStick;
 
     public override void Spawned()
     {
-        Runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnInputLeftStick);
+        Runner.GetComponent<NetworkEvents>().OnInput.AddListener(OnInputCombine);
     }
 
-    private bool _mouseButton0;
-    private void Update()
-    {
-        _mouseButton0 = _mouseButton0 | Input.GetMouseButton(0);
-    }
-
-    public void OnInputLeftStick(NetworkRunner runner, NetworkInput input)
+    public void OnInputCombine(NetworkRunner runner, NetworkInput input)
     {
         var data = new NetworkInputData();
 
-        Vector2 moveDirection = _actionReference.action.ReadValue<Vector2>();
-
-        data.direction = moveDirection;
-
-        data.buttons.Set(NetworkInputData.MOUSEBUTTON0, _mouseButton0);
-        _mouseButton0 = false;
+        data.directionMove = OnInputPlayer(_actionReferenceLeftStick);
+        data.directionShoot = OnInputPlayer(_actionReferenceRightStick);
 
         input.Set(data);
+    }
+
+    public Vector2 OnInputPlayer(InputActionReference actionReference)
+    {
+        Vector2 moveDirection = actionReference.action.ReadValue<Vector2>();
+        return moveDirection;
     }
 }

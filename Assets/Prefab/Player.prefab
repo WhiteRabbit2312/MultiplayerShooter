@@ -195,14 +195,14 @@ MonoBehaviour:
   SortKey: 686910020
   ObjectInterest: 1
   Flags: 262145
-  NestedObjects: []
+  NestedObjects:
+  - {fileID: 961469491260270712}
   NetworkedBehaviours:
   - {fileID: 1627185523803964209}
   - {fileID: 6435947471367899822}
   - {fileID: 4569969599386003694}
   - {fileID: 7734254638345362145}
   - {fileID: 5809523631381118417}
-  - {fileID: 3338749459143611122}
 --- !u!114 &1627185523803964209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0.05
+  _gun: {fileID: 8872959349416933504}
 --- !u!114 &6435947471367899822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d61d770405ff241b4830e8c54adda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _actionReference: {fileID: 8545138322801547713, guid: d5430d8632a2c354e966fc5465858f12, type: 3}
+  _actionReferenceLeftStick: {fileID: 8545138322801547713, guid: d5430d8632a2c354e966fc5465858f12, type: 3}
+  _actionReferenceRightStick: {fileID: 855031212429228722, guid: d5430d8632a2c354e966fc5465858f12, type: 3}
 --- !u!114 &3103851428847734586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +421,7 @@ GameObject:
   - component: {fileID: 7526054909183659598}
   - component: {fileID: 5626862082558869050}
   - component: {fileID: 3338749459143611122}
+  - component: {fileID: 961469491260270712}
   m_Layer: 0
   m_Name: Wheapon
   m_TagString: Untagged
@@ -515,3 +518,21 @@ MonoBehaviour:
   - {fileID: -353751291, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   - {fileID: 1772703093, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   - {fileID: -144335857, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+--- !u!114 &961469491260270712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8872959349416933504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 709008186
+  ObjectInterest: 1
+  Flags: 1
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 3338749459143611122}

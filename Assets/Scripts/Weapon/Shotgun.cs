@@ -22,7 +22,10 @@ namespace SecondTraineeGame {
         {
             for(int i = 0; i < 3; ++i)
             {
-                Runner.Spawn(bullet, firePoint.position, Quaternion.identity);
+                if (Runner == null)
+                    Debug.LogWarning("RnnerShotgun is null");
+                else
+                    Runner.Spawn(bullet, firePoint.position, Quaternion.identity);
             }
         }
 

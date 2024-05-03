@@ -44,13 +44,17 @@ namespace SecondTraineeGame
             }
 
             _playerSprite.sprite = _weaponSprites[_weapon.WeaponType()];
-
+            Debug.LogWarning("Weapon " + _weapon);
             SetupSkinForEveryone();
+
         }
 
         public void Shoot()
         {
-            _weapon.Fire(_bullet[_weapon.BulletType()], _weaponPoint);
+            if (_weapon != null)
+                _weapon.Fire(_bullet[_weapon.BulletType()], _weaponPoint);
+
+            else Debug.LogError("Weapon is null");
         }
 
         private void SetupSkinForEveryone()
