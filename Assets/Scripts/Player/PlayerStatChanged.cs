@@ -36,6 +36,9 @@ public class PlayerStatChanged : NetworkBehaviour
         if (_hp > FullHP)
             _hp = FullHP;
 
+        //if (_hp <= 0)
+            //PlayerAnimationManager.OnPlayerDeath?.Invoke();
+
         _hpText.text = "HP " + _hp.ToString() + "/15";
         Debug.LogWarning("HP " + _hp);
     }

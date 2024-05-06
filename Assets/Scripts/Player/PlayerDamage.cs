@@ -11,6 +11,7 @@ public class PlayerDamage : NetworkBehaviour
         {
             Debug.LogWarning("In collision");
             PlayerStatChanged.OnHPChanged?.Invoke(enemy.Damage);
+            //PlayerAnimationManager.OnPlayerDamage?.Invoke();
         }
     }
 }

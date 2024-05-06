@@ -7,7 +7,7 @@ namespace SecondTraineeGame
         private int _weaponTypeIdx = 1;
         private int _bulletTypeIdx = 1;
         private int _damage = 3;
-        private int _range = 1;
+        private int _range = 100;
         public override int WeaponType()
         {
             //Debug.Log("Shotgun");

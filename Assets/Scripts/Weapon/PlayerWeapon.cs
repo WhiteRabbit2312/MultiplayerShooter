@@ -21,8 +21,9 @@ namespace SecondTraineeGame
         }
         public override void Spawned()
         {
-            if (!Object.HasStateAuthority)
-                RPC_SendMessagReady();
+            //_weapon = gameObject.AddComponent<Pistol>();
+            //if (!Object.HasStateAuthority)
+            RPC_SendMessagReady();
         }
 
         [Rpc(RpcSources.All, RpcTargets.All)]
@@ -49,12 +50,20 @@ namespace SecondTraineeGame
 
         }
 
-        public void Shoot()
+        private NetworkObject _spawnedBulletNetworkObject;
+        private Bullet _spawnedBullet;
+        public Bullet Shoot()
         {
             if (_weapon != null)
-                _weapon.Fire(_bullet[_weapon.BulletType()], _weaponPoint);
+            {
+                _spawnedBulletNetworkObject = Runner.Spawn(_bullet[_weapon.BulletType()], _weaponPoint.position, Quaternion.identity);
+                _spawnedBullet = _spawnedBulletNetworkObject.GetComponent<Bullet>();
+                _spawnedBullet.SetRange(_weapon.FireRange());
+            }
 
             else Debug.LogError("Weapon is null");
+
+            return _spawnedBullet;
         }
 
         private void SetupSkinForEveryone()
@@ -71,9 +80,16 @@ namespace SecondTraineeGame
         public void RPC_SendMessageWeapon(int weaponType)
         {
             Debug.Log("RPC_SendMessageWeapon");
+            switch (weaponType)
+            {
+                case 0:
+                    _weapon = gameObject.AddComponent<Pistol>(); break;
+                case 1:
+                    _weapon = gameObject.AddComponent<Shotgun>(); break;
+                case 2:
+                    _weapon = gameObject.AddComponent<MachineGun>(); break;
+            }
             _playerSprite.sprite = _weaponSprites[weaponType];
         }
-
-
     }
 }
