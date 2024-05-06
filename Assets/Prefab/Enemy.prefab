@@ -69,7 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: -2
-  _speed: 1
+  Health: 5
+  _speed: 2
 --- !u!50 &79318743419502951
 Rigidbody2D:
   serializedVersion: 4

@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
+using TMPro;
 
-public class WaveManager : MonoBehaviour
+public enum WaveState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    First,
+    Second,
+    Third
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public class WaveManager : NetworkBehaviour
+{
+    [SerializeField] private TextMeshProUGUI _timerText;
+
+    private int _timer;
+    public WaveState State;
+
+
+    
 }

@@ -551,8 +551,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bullet:
   - {fileID: 513977432998971244, guid: 19935786b5b826d46b56e7c338030aaa, type: 3}
-  - {fileID: 513977432998971244, guid: 19935786b5b826d46b56e7c338030aaa, type: 3}
-  - {fileID: 513977432998971244, guid: 19935786b5b826d46b56e7c338030aaa, type: 3}
+  - {fileID: 513977432998971244, guid: 6962a2a1d4242174d96551d17d060a99, type: 3}
+  - {fileID: 513977432998971244, guid: c2959a1d6a026ff4aa3978c8906f104c, type: 3}
   _weaponPoint: {fileID: 1387650028071628576}
   _weaponSprites:
   - {fileID: -353751291, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}

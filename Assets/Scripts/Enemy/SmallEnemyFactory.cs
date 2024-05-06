@@ -6,12 +6,13 @@ using Fusion;
 public class SmallEnemyFactory : NetworkBehaviour, IEnemyFactory
 {
     private Enemy _spawnedEnemy;
-    private Vector2 _spawnPosition = new Vector2(-1, 1);
+    private Vector2 _spawnPosition;
     private BasicSpawner _basicSpawner;
 
-    public void Initialize(Enemy spawnedEnemy)
+    public void Initialize(Enemy spawnedEnemy, Transform spawnPosition)
     {
         _spawnedEnemy = spawnedEnemy;
+        _spawnPosition = spawnPosition.position;
     }
     //TODO: не використовувати networkObject для спавну
 

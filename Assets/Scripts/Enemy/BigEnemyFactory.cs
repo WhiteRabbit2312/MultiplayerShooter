@@ -6,12 +6,13 @@ using Fusion;
 public class BigEnemyFactory : NetworkBehaviour, IEnemyFactory
 {
     private Enemy _spawnedEnemy;
-    private Vector2 _spawnPosition = new Vector2(-3, 3);
+    private Vector2 _spawnPosition;
     private BasicSpawner _basicSpawner;
 
-    public void Initialize(Enemy spawnedEnemy)
+    public void Initialize(Enemy spawnedEnemy, Transform spawnPosition)
     {
         _spawnedEnemy = spawnedEnemy;
+        _spawnPosition = spawnPosition.position;
     }
 
 
@@ -21,5 +22,10 @@ public class BigEnemyFactory : NetworkBehaviour, IEnemyFactory
         Enemy enemySpawned = Runner.Spawn(_spawnedEnemy, _spawnPosition, Quaternion.identity);
         _basicSpawner = GameObject.FindObjectOfType<BasicSpawner>();
         enemySpawned.Init(_basicSpawner.CharacterPosition);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
     }
 }

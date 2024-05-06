@@ -7,18 +7,23 @@ using SecondTraineeGame;
 public class Bullet : NetworkBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _lifeTime;
+    [SerializeField] private int _damage;
     private int _timer = 0;
-    private int _lifeTime;
     private Quaternion _dir;
-
-    public void SetRange(int lifeTime)
-    {
-        _lifeTime = lifeTime;
-    }
 
     public void SetDirection(Quaternion dir)
     {
         _dir = dir;
+    }
+
+    public int Damage
+    {
+        get { return _damage; }
+        private set
+        {
+            Damage = _damage;
+        }
     }
 
     public override void FixedUpdateNetwork()

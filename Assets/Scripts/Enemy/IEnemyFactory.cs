@@ -6,5 +6,5 @@ using Fusion;
 public interface IEnemyFactory 
 {
     public void SpawnEnemy(); //SpawnEnemy
-    public void Initialize(Enemy enemy);
+    public void Initialize(Enemy enemy, Transform spawnPoint);
 }

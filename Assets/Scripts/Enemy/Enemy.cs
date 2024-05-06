@@ -6,6 +6,7 @@ using Fusion;
 public class Enemy : NetworkBehaviour
 {
     public int Damage;
+    public int Health;
     [SerializeField] private float _speed;
     private Transform _direction;
     private float t = 0f;
@@ -30,16 +31,26 @@ public class Enemy : NetworkBehaviour
             return;
         }
 
-
         t = Runner.DeltaTime * _speed;
         transform.position = Vector3.Lerp(transform.position, _direction.position, t);
         if(transform.position == _direction.position)
         {
             t = 0f;
         }
-    }
-    
 
+        if(Health <= 0)
+        {
+            Runner.Despawn(Object);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out Bullet bullet))
+        {
+            Health -= bullet.Damage;
+        }
+    }
 
     /*
     public void OnEnemyMove(NetworkRunner runner, NetworkInput input)

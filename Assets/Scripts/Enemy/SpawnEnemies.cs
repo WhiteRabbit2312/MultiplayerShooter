@@ -6,10 +6,11 @@ using Fusion;
 public class SpawnEnemies : NetworkBehaviour
 {
     [SerializeField] private Enemy[] enemyArray;
+    [SerializeField] private Transform[] spawnEnemyPoint;
 
     private int _timer = 0;
     private IEnemyFactory _enemy;
-    private int _enemyNumber = 3;
+    private int _enemyCount = 3;
 
     private IEnemyFactory _smallEnemy;
     private IEnemyFactory _bigEnemy;
@@ -27,10 +28,11 @@ public class SpawnEnemies : NetworkBehaviour
         if (Runner.IsServer)
         {
             _timer++;
-            if (_timer == 300)
+            if (_timer == 500)
             {
                 //separate to another method SPAWN etc.
-                int randomEnemy = Random.Range(0, _enemyNumber);
+                int randomEnemy = Random.Range(0, _enemyCount);
+                int randomSpawnPoint = Random.Range(0, spawnEnemyPoint.Length);
 
                 switch (randomEnemy)
                 {
@@ -39,7 +41,7 @@ public class SpawnEnemies : NetworkBehaviour
                     case 2: _enemy = _skeletonEnemy; Debug.Log("Skeleton enemy" + _enemy); break;
                 }
 
-                _enemy.Initialize(enemyArray[randomEnemy]);
+                _enemy.Initialize(enemyArray[randomEnemy], spawnEnemyPoint[randomSpawnPoint]);
                 Debug.Log(" Initialize Enemy: " + _enemy);
                 _enemy.SpawnEnemy();
                 

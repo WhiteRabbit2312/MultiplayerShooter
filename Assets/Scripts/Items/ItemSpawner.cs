@@ -6,6 +6,7 @@ using Fusion;
 public class ItemSpawner : NetworkBehaviour
 {
     [SerializeField] private NetworkObject[] _item;
+    [SerializeField] private Transform[] _spawnPoint;
     private int _timer = 0;
     private int _itemCount = 3;
 
@@ -15,9 +16,9 @@ public class ItemSpawner : NetworkBehaviour
         if (_timer == 200)
         {
             int randomItem = Random.Range(0, _itemCount);
+            int randomSpawnPoint = Random.Range(0, _spawnPoint.Length);
 
-            int _randomX = Random.Range(-5, 5);
-            Runner.Spawn(_item[randomItem], new Vector3(_randomX, 0, 0), Quaternion.identity);
+            Runner.Spawn(_item[randomItem], _spawnPoint[randomSpawnPoint].position, Quaternion.identity);
 
             _timer = 0;
         }
