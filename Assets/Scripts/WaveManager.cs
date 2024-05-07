@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
-using TMPro;
-
-public enum WaveState
-{
-    First,
-    Second,
-    Third
-}
 
 public class WaveManager : NetworkBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _timerText;
+    [HideInInspector] public int WaveCount = 0;
 
-    private int _timer;
-    public WaveState State;
+    public override void Spawned()
+    {
+        GameManager.OnBreak += NextWave;
+    }
 
+    public void NextWave() => WaveCount++;
 
-    
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        Debug.Log("Despawned");
+
+        GameManager.OnBreak -= NextWave;
+
+    }
 }

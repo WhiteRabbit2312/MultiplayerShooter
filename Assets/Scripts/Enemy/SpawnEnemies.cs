@@ -7,31 +7,41 @@ public class SpawnEnemies : NetworkBehaviour
 {
     [SerializeField] private Enemy[] enemyArray;
     [SerializeField] private Transform[] spawnEnemyPoint;
+    [SerializeField] private Wave _wave;
+    [SerializeField] private WaveManager _waveManager;
 
     private int _timer = 0;
     private IEnemyFactory _enemy;
-    private int _enemyCount = 3;
 
     private IEnemyFactory _smallEnemy;
     private IEnemyFactory _bigEnemy;
     private IEnemyFactory _skeletonEnemy;
+
+    private bool _canSpawn = false;
 
     public override void Spawned()
     {
         _smallEnemy = GetComponent<SmallEnemyFactory>();
         _bigEnemy = GetComponent<BigEnemyFactory>();
         _skeletonEnemy = GetComponent<SkeletonEnemyFactory>();
+
+        GameManager.OnGameplay += CanPlay;
+        GameManager.OnBreak += StopPlay;
     }
+
+    public void CanPlay() => _canSpawn = true;
+    public void StopPlay() => _canSpawn = false;
 
     public override void FixedUpdateNetwork()
     {
-        if (Runner.IsServer)
+        if (Runner.IsServer && _canSpawn)
         {
             _timer++;
-            if (_timer == 500)
+            if (_timer == 200)
             {
                 //separate to another method SPAWN etc.
-                int randomEnemy = Random.Range(0, _enemyCount);
+                int waveIdx = _waveManager.WaveCount;
+                int randomEnemy = Random.Range(0, _wave.waveStat[waveIdx].Enemy);
                 int randomSpawnPoint = Random.Range(0, spawnEnemyPoint.Length);
 
                 switch (randomEnemy)
@@ -49,5 +59,13 @@ public class SpawnEnemies : NetworkBehaviour
                 _timer = 0;
             }
         }
+    }
+
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        Debug.Log("Despawned");
+
+        GameManager.OnGameplay -= CanPlay;
+        GameManager.OnBreak -= StopPlay;
     }
 }

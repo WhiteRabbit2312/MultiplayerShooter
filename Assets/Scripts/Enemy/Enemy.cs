@@ -11,6 +11,7 @@ public class Enemy : NetworkBehaviour
     private Transform _direction;
     private float t = 0f;
 
+
     public void Init(List<Transform> transformList)
     {
         _direction = transformList[0];
@@ -19,6 +20,8 @@ public class Enemy : NetworkBehaviour
     public override void Spawned()
     {
         if (!HasStateAuthority) return;
+
+             
     }
 
     public override void FixedUpdateNetwork()
@@ -31,13 +34,18 @@ public class Enemy : NetworkBehaviour
             return;
         }
 
-        t = Runner.DeltaTime * _speed;
-        transform.position = Vector3.Lerp(transform.position, _direction.position, t);
+        //t = Runner.DeltaTime * _speed;
+        //transform.position = Vector3.Lerp(_startPos, _direction.position, t);
+        Vector2 playerPosition = _direction.position - transform.position;
+        playerPosition.Normalize();
+
+        transform.Translate(playerPosition * _speed * Runner.DeltaTime);
+        /*
         if(transform.position == _direction.position)
         {
             t = 0f;
         }
-
+        */
         if(Health <= 0)
         {
             Runner.Despawn(Object);
@@ -51,6 +59,8 @@ public class Enemy : NetworkBehaviour
             Health -= bullet.Damage;
         }
     }
+
+
 
     /*
     public void OnEnemyMove(NetworkRunner runner, NetworkInput input)
