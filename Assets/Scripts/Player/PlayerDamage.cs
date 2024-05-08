@@ -9,14 +9,26 @@ public class PlayerDamage : NetworkBehaviour
     private int _damage;
     private bool _causeDamage = false;
 
+    private bool _isDead = false;
+    public override void Spawned()
+    {
+        GameManager.OnDeath += Dead;
+    }
+
+    public void Dead() => _isDead = true;
+
     public override void FixedUpdateNetwork()
     {
-        if (_causeDamage)
+        
+        if (_causeDamage && !_isDead)
         {
             if (_damagePerTime == 60)
             {
-                PlayerStatChanged.OnHPChanged?.Invoke(_damage);
+                PlayerStatChanged.OnHPChanged?.Invoke(-1);
+                //PlayerAnimationManager.OnPlayerDamage?.Invoke();
                 _damagePerTime = 0;
+
+                
             }
 
             _damagePerTime++;
@@ -27,12 +39,8 @@ public class PlayerDamage : NetworkBehaviour
     {
         if (collision.TryGetComponent(out Enemy enemy))
         {
-            Debug.LogWarning("In collision");
-
             _damage = enemy.Damage;
             _causeDamage = true;
-
-            //PlayerAnimationManager.OnPlayerDamage?.Invoke();
         }
     }
 
@@ -44,4 +52,8 @@ public class PlayerDamage : NetworkBehaviour
         }
     }
 
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        GameManager.OnDeath -= Dead;
+    }
 }

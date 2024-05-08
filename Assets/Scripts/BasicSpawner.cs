@@ -12,6 +12,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private string _sceneName;
     public async void StartGame(GameMode mode)
     {
+        if (_runner != null)
+            return;
+
         //gameObject.AddComponent<RunnerSimulatePhysics3D>();
         // Create the Fusion runner and let it know that we will be providing user input
         _runner = gameObject.AddComponent<NetworkRunner>();

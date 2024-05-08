@@ -16,25 +16,33 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
     private PlayerWeapon _playerWeapon;
     private int _coolDown = 0;
     private bool _isFliped = false;
+    private bool _isDead = false;
+    private PlayerStats playerStats;
 
     public override void Spawned()
     {
         _playerWeapon = GetComponentInChildren<PlayerWeapon>();
         _gunSprite = _gun.GetComponent<SpriteRenderer>();
         _playerSprite = _player.GetComponent<SpriteRenderer>();
+        playerStats = GetComponent<PlayerStats>();
+
+        GameManager.OnDeath += Dead;
+            
     }
+
+    private void Dead() => _isDead = true;
+
     public override void FixedUpdateNetwork()
     {
-        if (GetInput(out NetworkInputData data))
+        if (GetInput(out NetworkInputData data) && !_isDead)
         {
             transform.Translate(data.directionMove * _speed);
-            Debug.LogError($"Move {data.directionMove} | Shoot {data.directionShoot} ");
 
-            //if (data.directionMove.magnitude > 0)
-                //PlayerAnimationManager.OnPlayerMove?.Invoke(); //_playerAnimator.Play("Go");
+            if (data.directionMove.magnitude > 0)
+                PlayerAnimationManager.OnPlayerMove?.Invoke(); //_playerAnimator.Play("Go");
 
-            //else PlayerAnimationManager.OnPlayerStay?.Invoke(); //_playerAnimator.Play("Idle");
-            /*
+            else PlayerAnimationManager.OnPlayerStay?.Invoke(); //_playerAnimator.Play("Idle");
+            
             
             if (data.directionShoot.magnitude > 0)
             {
@@ -59,14 +67,24 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 
                 _coolDown++;
 
-                if (_coolDown == 100)
+                //if (_coolDown == 100)
+                //{
+                
+
+                Debug.LogWarning("Shoot");
+
+                if (playerStats.HaveAmmo() && _coolDown == 10)
                 {
                     Bullet no = _playerWeapon.Shoot();
                     no.SetDirection(_gun.transform.rotation);
+                    playerStats.UseAmmo();
                     _coolDown = 0;
                 }
+
+
+                //}
                 
-            }*/
+            }
         }
     }
 }

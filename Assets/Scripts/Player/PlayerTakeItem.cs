@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 
@@ -9,7 +7,8 @@ public class PlayerTakeItem : NetworkBehaviour
     {
         if(collision.TryGetComponent(out IItemEffect itemEffect))
         {
-            itemEffect.EnableEffect();
+            PlayerStats stats = gameObject.GetComponent<PlayerStats>();
+            itemEffect.EnableEffect(stats);
         }
     }
 }

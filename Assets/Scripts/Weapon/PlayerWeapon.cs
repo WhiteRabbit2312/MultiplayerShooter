@@ -54,10 +54,13 @@ namespace SecondTraineeGame
         private Bullet _spawnedBullet;
         public Bullet Shoot()
         {
+     
+
             if (_weapon != null)
             {
                 _spawnedBulletNetworkObject = Runner.Spawn(_bullet[_weapon.BulletType()], _weaponPoint.position, Quaternion.identity);
                 _spawnedBullet = _spawnedBulletNetworkObject.GetComponent<Bullet>();
+
             }
 
             else Debug.LogError("Weapon is null");

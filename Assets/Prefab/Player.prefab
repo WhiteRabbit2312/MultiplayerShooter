@@ -145,7 +145,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4351309429388637090}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 995ce5085eacac348bf8238c022b338e, type: 3}
   m_Name: 
@@ -168,11 +168,11 @@ GameObject:
   - component: {fileID: 1627185523803964209}
   - component: {fileID: 6435947471367899822}
   - component: {fileID: 3103851428847734586}
-  - component: {fileID: 4569969599386003694}
   - component: {fileID: 2554859346102891853}
   - component: {fileID: 7734254638345362145}
   - component: {fileID: 273657122943594868}
   - component: {fileID: 5809523631381118417}
+  - component: {fileID: 2330525733539515114}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -220,9 +220,9 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1627185523803964209}
   - {fileID: 6435947471367899822}
-  - {fileID: 4569969599386003694}
   - {fileID: 7734254638345362145}
   - {fileID: 5809523631381118417}
+  - {fileID: 2330525733539515114}
   - {fileID: 2924494654284959050}
   - {fileID: 3338325134346403042}
 --- !u!114 &1627185523803964209
@@ -254,8 +254,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionReferenceLeftStick: {fileID: 8545138322801547713, guid: d5430d8632a2c354e966fc5465858f12, type: 3}
   _actionReferenceRightStick: {fileID: 855031212429228722, guid: d5430d8632a2c354e966fc5465858f12, type: 3}
-  _gun: {fileID: 8872959349416933504}
-  _player: {fileID: 4989813496094906164}
 --- !u!114 &3103851428847734586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,18 +284,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &4569969599386003694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4989813496094906164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e35c55c61e36ce429be90973154ae72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &2554859346102891853
 Rigidbody2D:
   serializedVersion: 4
@@ -404,6 +390,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ba502175accde4da5d7571517596bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2330525733539515114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4989813496094906164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e67ba2f0f8a504f8d81dc04ca34ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5612874391976894290
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +464,6 @@ GameObject:
   - component: {fileID: 3338749459143611122}
   - component: {fileID: 961469491260270712}
   - component: {fileID: 6290563217380458808}
-  - component: {fileID: 2221101826937345205}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -483,8 +480,8 @@ Transform:
   m_GameObject: {fileID: 8872959349416933504}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -0.284, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.153, z: 0}
+  m_LocalScale: {x: 1.3889, y: 1.3889, z: 1.3889}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1387650028071628576}
@@ -583,7 +580,6 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 3338749459143611122}
   - {fileID: 6290563217380458808}
-  - {fileID: 2221101826937345205}
 --- !u!114 &6290563217380458808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,21 +596,6 @@ MonoBehaviour:
   SyncParent: 0
   _autoAOIOverride: 1
   DisableSharedModeInterpolation: 0
---- !u!114 &2221101826937345205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8872959349416933504}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efafdf4aa4f150b4586e4b481652a69a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionReferenceRightStick: {fileID: 855031212429228722, guid: d5430d8632a2c354e966fc5465858f12, type: 3}
-  _gun: {fileID: 7526054909183659598}
-  _player: {fileID: 4989813496094906164}
 --- !u!1 &8958204236153035228
 GameObject:
   m_ObjectHideFlags: 0

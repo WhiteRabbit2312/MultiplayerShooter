@@ -30,30 +30,33 @@ public class PlayerStatChanged : NetworkBehaviour
 
     private void ChangeHP(int change)
     {
-        if(_hp <= FullHP)
-            _hp += change;
+        if(_hp <= FullHP && _hp > 0)
+            _hp -= change;
 
         if (_hp > FullHP)
             _hp = FullHP;
 
-        //if (_hp <= 0)
+        if (_hp <= 0)
+        {
+            Debug.LogWarning("Dead");
             //PlayerAnimationManager.OnPlayerDeath?.Invoke();
+            GameManager.Death();
+        }
+            
 
         _hpText.text = "HP " + _hp.ToString() + "/15";
-        Debug.LogWarning("HP " + _hp);
     }
 
     private void ChangeAmmo(int change)
     {
-        if (_hp <= FullHP)
-            _ammo += change;
+        if (_ammo <= FullAmmo && _ammo > 0)
+            _ammo -= change;
 
         if (_ammo > FullAmmo)
             _ammo = FullAmmo;
 
         _ammo += change;
         _ammoText.text = "Ammo " + _ammo.ToString() + "/10";
-        Debug.LogWarning("Ammo " + _ammo);
     }
 
     private void ChangeKills(int change)

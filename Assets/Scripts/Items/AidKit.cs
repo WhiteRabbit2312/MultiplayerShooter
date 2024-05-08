@@ -6,12 +6,9 @@ using Fusion;
 
 public class AidKit : NetworkBehaviour, IItemEffect
 {
-    private int _hp;
-    private int _fullHP = 15;
-    public void EnableEffect()
+    public void EnableEffect(PlayerStats playerStats)
     {
-        _hp = _fullHP;
-        Debug.LogWarning("HP aid" + _hp);
+        playerStats.TakeAidKit();
         Runner.Despawn(Object);
     }
 }

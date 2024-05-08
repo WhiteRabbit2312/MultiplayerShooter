@@ -5,7 +5,6 @@ namespace SecondTraineeGame {
     {
         private int _weaponTypeIdx = 2;
         private int _bulletTypeIdx = 2;
-        private int _damage = 2;
         private int _range = 300;
         public override int WeaponType()
         {

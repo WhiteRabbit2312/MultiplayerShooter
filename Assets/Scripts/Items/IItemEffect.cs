@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IItemEffect 
 {
-    public void EnableEffect();
+    public void EnableEffect(PlayerStats playerStats);
 }

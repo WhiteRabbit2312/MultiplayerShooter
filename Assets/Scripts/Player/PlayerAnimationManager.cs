@@ -21,6 +21,7 @@ public class PlayerAnimationManager : NetworkBehaviour
         OnPlayerDamage += Damage;
         OnPlayerDeath += Death;
 
+
         _playerAnimator = GetComponent<Animator>();
         int skinIdx = PlayerPrefs.GetInt("Skin");
         _playerAnimator.runtimeAnimatorController = _animatorController[skinIdx];
@@ -37,11 +38,13 @@ public class PlayerAnimationManager : NetworkBehaviour
 
     public void Damage()
     {
+        Debug.LogWarning("Player damage");
         _playerAnimator.Play("Damage");
     }
 
     public void Death()
     {
+        Debug.LogWarning("Dead animation");
         _playerAnimator.Play("Death");
     }
 }

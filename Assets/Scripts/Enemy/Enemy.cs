@@ -9,8 +9,9 @@ public class Enemy : NetworkBehaviour
     public int Health;
     [SerializeField] private float _speed;
     private Transform _direction;
-    private float t = 0f;
-
+    private Animator _enemyAnimator;
+    private float _sphereRadius = 5f;
+    private float _damagePerTime = 60f;
 
     public void Init(List<Transform> transformList)
     {
@@ -20,35 +21,48 @@ public class Enemy : NetworkBehaviour
     public override void Spawned()
     {
         if (!HasStateAuthority) return;
-
-             
+        _enemyAnimator = GetComponentInChildren<Animator>();
     }
 
     public override void FixedUpdateNetwork()
     {
-        Debug.LogWarning("Fixed update enemy");
-
         if (!HasStateAuthority)
         {
             Debug.Log("HasStateAuthority");
             return;
         }
 
-        //t = Runner.DeltaTime * _speed;
-        //transform.position = Vector3.Lerp(_startPos, _direction.position, t);
         Vector2 playerPosition = _direction.position - transform.position;
         playerPosition.Normalize();
 
         transform.Translate(playerPosition * _speed * Runner.DeltaTime);
-        /*
-        if(transform.position == _direction.position)
+        
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _sphereRadius);
+
+        if (colliders != null)
         {
-            t = 0f;
+            if (_damagePerTime == 60)
+            {
+                _damagePerTime = 0;
+                foreach (Collider collider in colliders)
+                {
+                    if (collider.isTrigger)
+                    {
+                        EnemyHitPlayer(collider);
+                    }
+                }
+            }
+
+            _damagePerTime++;
         }
-        */
-        if(Health <= 0)
+    }
+
+    private void EnemyHitPlayer(Collider collider)
+    {
+        if(collider.TryGetComponent(out PlayerStats playerStats))
         {
-            Runner.Despawn(Object);
+            playerStats.GetDamage(Damage);
         }
     }
 
@@ -56,17 +70,17 @@ public class Enemy : NetworkBehaviour
     {
         if (collision.TryGetComponent(out Bullet bullet))
         {
+            
+            _enemyAnimator.SetTrigger("Damage");
             Health -= bullet.Damage;
+
+            Runner.Despawn(bullet.Object);
+
+            if (Health <= 0)
+            {
+                Debug.LogWarning("enemy damaged");
+                Runner.Despawn(Object);
+            }
         }
     }
-
-
-
-    /*
-    public void OnEnemyMove(NetworkRunner runner, NetworkInput input)
-    {
-        var data = new NetworkEnemyData();
-        data.direction = transform.position;
-        input.Set(data);
-    }*/
 }

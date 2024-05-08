@@ -9,7 +9,13 @@ public class SkinPanel : MonoBehaviour
 
 
     // Start is called before the first frame update
-
+    private void Awake()
+    {
+        if (!PlayerPrefs.HasKey("Skin"))
+        {
+            PlayerPrefs.SetInt("Skin", 0);
+        }
+    }
 
     public Sprite GetSprite
     {
@@ -26,6 +32,9 @@ public class SkinPanel : MonoBehaviour
         //TODO: винести string значення в константу або readonly
         _skin[skinIdx].GetComponent<Animator>().Play("Go");
         GetSprite = _skin[skinIdx].GetComponent<Image>().sprite;
+
+        
+
         PlayerPrefs.SetInt("Skin", skinIdx);
     }
 
