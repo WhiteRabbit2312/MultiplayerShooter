@@ -11,10 +11,16 @@ public class SkinPanel : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        
         if (!PlayerPrefs.HasKey("Skin"))
         {
             PlayerPrefs.SetInt("Skin", 0);
+            
         }
+
+        int skinIdx = PlayerPrefs.GetInt("Skin");
+        _skin[skinIdx].GetComponent<Animator>().Play("Go");
+
     }
 
     public Sprite GetSprite

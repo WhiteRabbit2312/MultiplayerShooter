@@ -18,7 +18,6 @@ public class Timer : NetworkBehaviour
     public override void Spawned()
     {
         GameManager.OnGameplay += SetTime;
-        GameManager.OnDeath += StopCount;
         GameManager.OnBreak += StopCount;
         int waveIdx = _waveManager.WaveCount;
         _breakTimer = _wave.waveStat[waveIdx].Break;
@@ -79,7 +78,6 @@ public class Timer : NetworkBehaviour
         Debug.Log("Despawned");
 
         GameManager.OnGameplay -= SetTime;
-        GameManager.OnDeath -= StopCount;
         GameManager.OnBreak -= StopCount;
     }
 }

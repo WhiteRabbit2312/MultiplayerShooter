@@ -6,10 +6,10 @@ using System;
 
 public class PlayerStats : NetworkBehaviour
 {
-    private int _hp = 15;
-    private int _ammo = 1000;
-    [HideInInspector] public int Kills = 0;
-    [HideInInspector] public int Damage = 0;
+    [Networked] private int _hp { get; set; } = 15;
+    [Networked] private int _ammo { get; set; }  = 1000;
+    [Networked] public int Kills { get; set; } = 0;
+    [Networked] public int Damage { get; set; } = 0;
     [HideInInspector] public bool Dead = false;
     public static Action OnKill;
     public static Action<int> OnDamage;
@@ -36,7 +36,7 @@ public class PlayerStats : NetworkBehaviour
         {
             _hp = 0;
             Dead = true;
-            GameManager.Death();
+            PlayerAnimationManager.OnPlayerDeath?.Invoke();
         }
 
         ShowPlayerStats.OnHPChanged?.Invoke(_hp);
@@ -62,7 +62,8 @@ public class PlayerStats : NetworkBehaviour
             _ammo = 0;
         }
 
-        ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
+        if(HasInputAuthority)
+            ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
     }
 
     public bool HaveAmmo()
@@ -73,7 +74,8 @@ public class PlayerStats : NetworkBehaviour
     public void TakeAmmoBox()
     {
         _ammo = FullAmmo;
-        ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
+        if (HasInputAuthority)
+            ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
     }
 
     public void ChangeKills()

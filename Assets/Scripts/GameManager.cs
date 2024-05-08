@@ -8,7 +8,6 @@ public class GameManager : NetworkBehaviour
 {
     public static event Action OnBreak;
     public static event Action OnGameplay;
-    public static event Action OnDeath;
     public static event Action OnGameOver;
 
     private BasicSpawner _basicspawner;
@@ -28,11 +27,12 @@ public class GameManager : NetworkBehaviour
         OnGameplay?.Invoke();
     }
 
+    /*
     public static void Death()
     {
         OnDeath?.Invoke();
  
-    }
+    }*/
 
     public override void FixedUpdateNetwork()
     {

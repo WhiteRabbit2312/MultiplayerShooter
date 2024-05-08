@@ -26,15 +26,13 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
         _playerSprite = _player.GetComponent<SpriteRenderer>();
         playerStats = GetComponent<PlayerStats>();
 
-        GameManager.OnDeath += Dead;
             
     }
 
-    private void Dead() => _isDead = true;
 
     public override void FixedUpdateNetwork()
     {
-        if (GetInput(out NetworkInputData data) && !_isDead)
+        if (GetInput(out NetworkInputData data) && !playerStats.Dead)
         {
             transform.Translate(data.directionMove * _speed);
 
