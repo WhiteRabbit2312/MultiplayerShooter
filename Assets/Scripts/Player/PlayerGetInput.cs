@@ -49,9 +49,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 Vector2 direction = data.directionShoot;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 _gun.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-                Debug.Log("Gun rotation " + _gun.transform.rotation);
-
                 
                 if(_gun.transform.rotation.z >= 0.7f || _gun.transform.rotation.z <= -0.7f)
                 {
@@ -66,12 +63,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 }
                 
                 _coolDown++;
-
-                //if (_coolDown == 100)
-                //{
-                
-
-                Debug.LogWarning("Shoot");
 
                 if (playerStats.HaveAmmo() && _coolDown == 10)
                 {

@@ -49,14 +49,15 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     [SerializeField] private NetworkPrefabRef _playerPrefab;
-    private  Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+    private  Dictionary<PlayerRef, NetworkObject> SpawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+    public  Dictionary<PlayerRef, PlayerStats> SpawnedCharactersStats = new Dictionary<PlayerRef, PlayerStats>();
 
     public List<Transform> CharacterPosition
     {
         get
         {
             List<Transform> transPos = new List<Transform>();
-            foreach(var item in _spawnedCharacters)
+            foreach(var item in SpawnedCharacters)
             {
                 transPos.Add(item.Value.transform);
             }
@@ -72,17 +73,18 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             Vector3 spawnPosition = new Vector3(0, 0, 0);//
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
             // Keep track of the player avatars for easy access
-            _spawnedCharacters.Add(player, networkPlayerObject);
-
+            SpawnedCharacters.Add(player, networkPlayerObject);
+            PlayerStats playerStats = networkPlayerObject.GetComponent<PlayerStats>();
+            SpawnedCharactersStats.Add(player, playerStats);
         }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
+        if (SpawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
             runner.Despawn(networkObject);
-            _spawnedCharacters.Remove(player);
+            SpawnedCharacters.Remove(player);
         }
     }
 

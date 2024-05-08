@@ -13,6 +13,7 @@ public class BigEnemyFactory : NetworkBehaviour, IEnemyFactory
     {
         _spawnedEnemy = spawnedEnemy;
         _spawnPosition = spawnPosition.position;
+        _basicSpawner = FindObjectOfType<BasicSpawner>();
     }
 
 
@@ -20,7 +21,7 @@ public class BigEnemyFactory : NetworkBehaviour, IEnemyFactory
     public void SpawnEnemy()
     {
         Enemy enemySpawned = Runner.Spawn(_spawnedEnemy, _spawnPosition, Quaternion.identity);
-        _basicSpawner = GameObject.FindObjectOfType<BasicSpawner>();
+        
         enemySpawned.Init(_basicSpawner.CharacterPosition);
     }
 

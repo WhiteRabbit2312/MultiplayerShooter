@@ -13,7 +13,7 @@ public class Enemy : NetworkBehaviour
     private Animator _enemyAnimator;
     private float _damagePerTime = 60f;
     private bool _causeDamage = false;
-    private PlayerStats _playerStats;
+    private PlayerStats _playerStats;//TODO: Initialize player
 
     public void Init(List<Transform> transformList)
     {
@@ -69,7 +69,7 @@ public class Enemy : NetworkBehaviour
 
             if (Health <= 0)
             {
-                Debug.LogWarning("enemy damaged");
+                PlayerStats.OnKill?.Invoke();
                 Runner.Despawn(Object);
             }
         }

@@ -26,6 +26,7 @@ public class ShowPlayerStats : NetworkBehaviour
     private void HP(int hp)
     {
         _hpText.text = "HP " + hp.ToString() + "/15";
+        Debug.LogWarning("Client");
     }
 
     private void Ammo(int ammo)

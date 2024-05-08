@@ -2,28 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using System;
 
 public class PlayerStats : NetworkBehaviour
 {
     private int _hp = 15;
     private int _ammo = 1000;
-    private int _kills = 0;
+    [HideInInspector] public int Kills = 0;
+    [HideInInspector] public int Damage = 0;
+    [HideInInspector] public bool Dead = false;
+    public static Action OnKill;
+    public static Action<int> OnDamage;
 
     private const int FullHP = 15;
     private const int FullAmmo = 1000;
+
+    public override void Spawned()
+    {
+        OnKill += ChangeKills;
+        OnDamage += ChangeDamage;
+    }
 
     public void GetDamage(int change)
     {
         if (_hp > 0)
         {
             _hp -= change;
-            Debug.LogWarning("HP " + _hp);
+            
             PlayerAnimationManager.OnPlayerDamage?.Invoke();
         }
 
         else
         {
             _hp = 0;
+            Dead = true;
             GameManager.Death();
         }
 
@@ -39,6 +51,7 @@ public class PlayerStats : NetworkBehaviour
 
     public void UseAmmo()
     {
+        Debug.LogWarning("Client damaged");
         if (_ammo > 0)
         {
             _ammo--;
@@ -63,10 +76,16 @@ public class PlayerStats : NetworkBehaviour
         ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
     }
 
-    public void ChangeKills(int change)
+    public void ChangeKills()
     {
-        _kills += change;
-        ShowPlayerStats.OnKillsChanged?.Invoke(_kills);
+        Kills++;
+        ShowPlayerStats.OnKillsChanged?.Invoke(Kills);
+    }
+
+    public void ChangeDamage(int damage)
+    {
+        Damage += damage;
+        
     }
 
 }
