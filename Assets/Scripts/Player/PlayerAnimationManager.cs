@@ -29,22 +29,23 @@ public class PlayerAnimationManager : NetworkBehaviour
 
     public void Stay()
     {
-        _playerAnimator.Play("Idle");
+        //_playerAnimator.Play("Idle");
+        _playerAnimator.SetBool("Go", false);
     }
     public void Move()
     {
-        _playerAnimator.Play("Go");
+        _playerAnimator.SetBool("Go", true);
     }
 
     public void Damage()
     {
         Debug.LogWarning("Player damage");
-        _playerAnimator.Play("Damage");
+        _playerAnimator.SetTrigger("Damage");
     }
 
     public void Death()
     {
         Debug.LogWarning("Dead animation");
-        _playerAnimator.Play("Death");
+        _playerAnimator.SetTrigger("Death");
     }
 }

@@ -71,6 +71,9 @@ MonoBehaviour:
   Damage: 1
   Health: 20
   _speed: 1.5
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!50 &79318743419502951
 Rigidbody2D:
   serializedVersion: 4

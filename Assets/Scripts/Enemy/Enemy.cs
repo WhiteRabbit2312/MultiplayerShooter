@@ -8,10 +8,12 @@ public class Enemy : NetworkBehaviour
     public int Damage;
     public int Health;
     [SerializeField] private float _speed;
+    [SerializeField] private LayerMask _layerMask;
     private Transform _direction;
     private Animator _enemyAnimator;
-    private float _sphereRadius = 5f;
     private float _damagePerTime = 60f;
+    private bool _causeDamage = false;
+    private PlayerStats _playerStats;
 
     public void Init(List<Transform> transformList)
     {
@@ -22,6 +24,7 @@ public class Enemy : NetworkBehaviour
     {
         if (!HasStateAuthority) return;
         _enemyAnimator = GetComponentInChildren<Animator>();
+        GameManager.OnBreak += DestroyEnemy;
     }
 
     public override void FixedUpdateNetwork()
@@ -36,41 +39,29 @@ public class Enemy : NetworkBehaviour
         playerPosition.Normalize();
 
         transform.Translate(playerPosition * _speed * Runner.DeltaTime);
-        
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _sphereRadius);
-
-        if (colliders != null)
+        if (_causeDamage)
         {
-            if (_damagePerTime == 60)
+            if (_damagePerTime >= 60)
             {
                 _damagePerTime = 0;
-                foreach (Collider collider in colliders)
+
+                Debug.LogWarning("Player get damage");
+
+                if (_playerStats != null)
                 {
-                    if (collider.isTrigger)
-                    {
-                        EnemyHitPlayer(collider);
-                    }
+                    _playerStats.GetDamage(Damage);
                 }
             }
-
             _damagePerTime++;
         }
     }
 
-    private void EnemyHitPlayer(Collider collider)
-    {
-        if(collider.TryGetComponent(out PlayerStats playerStats))
-        {
-            playerStats.GetDamage(Damage);
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Bullet bullet))
         {
-            
             _enemyAnimator.SetTrigger("Damage");
             Health -= bullet.Damage;
 
@@ -81,6 +72,26 @@ public class Enemy : NetworkBehaviour
                 Debug.LogWarning("enemy damaged");
                 Runner.Despawn(Object);
             }
+        }
+
+        if (collision.TryGetComponent(out PlayerStats playerStats))
+        {
+            
+            _playerStats = playerStats;
+            _causeDamage = true;
+        }
+    }
+
+    private void DestroyEnemy()
+    {
+        Runner.Despawn(Object);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            _causeDamage = false;
         }
     }
 }

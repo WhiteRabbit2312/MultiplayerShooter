@@ -47,6 +47,7 @@ public class Timer : NetworkBehaviour
             if (_timer == 0)
             {
                 Debug.Log("Break");
+
                 GameManager.Break();
                 int waveIdx = _waveManager.WaveCount;
                 _breakTimer = _wave.waveStat[waveIdx].Break;
@@ -56,7 +57,7 @@ public class Timer : NetworkBehaviour
         else
         {
             
-            _breakText.text = (_breakTimer / 50).ToString();
+            _breakText.text = "Break time " + (_breakTimer / 50).ToString();
             _breakTimer--;
             if(_breakTimer == 0)
             {

@@ -5,6 +5,7 @@ using Fusion;
 
 public class PlayerDamage : NetworkBehaviour
 {
+    /*
     private int _damagePerTime = 59;
     private int _damage;
     private bool _causeDamage = false;
@@ -24,7 +25,7 @@ public class PlayerDamage : NetworkBehaviour
         {
             if (_damagePerTime == 60)
             {
-                PlayerStatChanged.OnHPChanged?.Invoke(-1);
+              
                 //PlayerAnimationManager.OnPlayerDamage?.Invoke();
                 _damagePerTime = 0;
 
@@ -55,5 +56,5 @@ public class PlayerDamage : NetworkBehaviour
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
         GameManager.OnDeath -= Dead;
-    }
+    }*/
 }

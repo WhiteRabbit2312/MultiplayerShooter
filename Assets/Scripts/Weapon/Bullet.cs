@@ -21,7 +21,6 @@ public class Bullet : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-       
         if(_timer == LifeTime)
         {
             Runner.Despawn(Object);

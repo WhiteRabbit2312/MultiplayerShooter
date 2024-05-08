@@ -71,6 +71,9 @@ MonoBehaviour:
   Damage: 5
   Health: 50
   _speed: 1
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!61 &6380776474211463407
 BoxCollider2D:
   m_ObjectHideFlags: 0

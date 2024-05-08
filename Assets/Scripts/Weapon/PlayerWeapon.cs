@@ -45,7 +45,6 @@ namespace SecondTraineeGame
             }
 
             _playerSprite.sprite = _weaponSprites[_weapon.WeaponType()];
-            Debug.LogWarning("Weapon " + _weapon);
             SetupSkinForEveryone();
 
         }
