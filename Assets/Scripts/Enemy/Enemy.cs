@@ -10,6 +10,8 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private LayerMask _layerMask;
     private Transform _direction;
+
+    private List<Transform> _directionList = new List<Transform>();
     private Animator _enemyAnimator;
     private float _damagePerTime = 60f;
     private bool _causeDamage = false;
@@ -17,7 +19,7 @@ public class Enemy : NetworkBehaviour
 
     public void Init(List<Transform> transformList)
     {
-        _direction = transformList[0];
+        _directionList = transformList;
     }
 
     public override void Spawned()
@@ -33,6 +35,11 @@ public class Enemy : NetworkBehaviour
         {
             Debug.Log("HasStateAuthority");
             return;
+        }
+
+        foreach(var item in _directionList)
+        {
+            float distance = Vector3.Distance(transform.position, item.position);
         }
 
         Vector2 playerPosition = _direction.position - transform.position;
@@ -57,6 +64,10 @@ public class Enemy : NetworkBehaviour
         }
     }
 
+    private Transform NearestPlayer()
+    {
+        return null;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

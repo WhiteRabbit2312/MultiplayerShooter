@@ -11,6 +11,9 @@ public class Timer : NetworkBehaviour
     [SerializeField] private Wave _wave;
     [SerializeField] private WaveManager _waveManager;
 
+    [Networked] private int _minutes { get; set; }
+    [Networked] private int _seconds { get; set; }
+
     private int _timer;
     private int _breakTimer;
     private bool _canRunTime = false;
@@ -68,9 +71,16 @@ public class Timer : NetworkBehaviour
 
     private void TimeCount(int timer)
     {
-        int minutes = (timer / 50) / 60;
-        int seconds = (timer / 50) % 60;
-        _timerText.text = minutes + " : " + seconds;
+        _minutes = (timer / 50) / 60;
+        _seconds = (timer / 50) % 60;
+        //_timerText.text = _minutes + " : " + _seconds;
+        RPC_changeTime();
+    }
+
+    [Rpc]
+    private void RPC_changeTime()
+    {
+        _timerText.text = _minutes + " : " + _seconds;
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)

@@ -53,13 +53,14 @@ public class PlayerStats : NetworkBehaviour
         _hp = FullHP;
 
         if (HasInputAuthority)
+        {
             ShowPlayerStats.OnHPChanged?.Invoke(_hp);
+        }
     }
 
 
     public void UseAmmo()
     {
-        Debug.LogWarning("Client damaged");
         if (_ammo > 0)
         {
             _ammo--;
@@ -71,15 +72,16 @@ public class PlayerStats : NetworkBehaviour
         }
 
 
-        ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
-        Debug.LogWarning("ShowPlayerStats");
 
+        if (HasInputAuthority)
+        {
+            ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
+        }
 
     }
 
     public bool HaveAmmo()
     {
-       
         return _ammo != 0 ? true : false;
     }
 
@@ -87,14 +89,18 @@ public class PlayerStats : NetworkBehaviour
     {
         _ammo = FullAmmo;
         if (HasInputAuthority)
+        {
             ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
+        }
     }
 
     public void ChangeKills()
     {
         Kills++;
         if (HasInputAuthority)
+        {
             ShowPlayerStats.OnKillsChanged?.Invoke(Kills);
+        }
     }
 
     public void ChangeDamage(int damage)

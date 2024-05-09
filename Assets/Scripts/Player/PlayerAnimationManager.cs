@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using System;
@@ -13,23 +11,64 @@ public class PlayerAnimationManager : NetworkBehaviour
     public static Action OnPlayerDeath;
 
     private Animator _playerAnimator;
+    private ChangeDetector _changeDetector;
+    [Networked] private int _skinIdx { get; set; }
 
     public override void Spawned()
     {
-        if (!HasInputAuthority) return;
-        OnPlayerStay += Stay;
-        OnPlayerMove += Move;
-        OnPlayerDamage += Damage;
-        OnPlayerDeath += Death;
-
-        Debug.Log("Animator set");
+        
+        
 
         _playerAnimator = GetComponent<Animator>();
-        int skinIdx = PlayerPrefs.GetInt("Skin");
-        _playerAnimator.runtimeAnimatorController = _animatorController[skinIdx];
-
+        _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
+        _skinIdx = 0;
+        RPC_ChangeSkinID(PlayerPrefs.GetInt("Skin"));
+       
+           
+        OnPlayerDamage += Damage;
+        OnPlayerDeath += Death;
+       
+    }
+    private void ChangeSkin()
+    {
+        _playerAnimator.runtimeAnimatorController = _animatorController[_skinIdx];
     }
 
+    public override void Render()
+    {
+        foreach (var change in _changeDetector.DetectChanges(this))
+        {
+            switch (change)
+            {
+                case nameof(_skinIdx):
+                    Debug.LogWarning("Index: " + _skinIdx);
+                    
+                    ChangeSkin();
+                        break;
+            }
+        }
+    }
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, InvokeLocal =  true)]
+    private void RPC_ChangeSkinID(int id)
+    {
+        _skinIdx = id;
+    }
+
+    /*
+    [Rpc(RpcSources.All, RpcTargets.All)]
+
+
+    public void RPC_SendMessagReadySkin()
+    {
+        if (!Object.HasStateAuthority) return;
+        _skinIdx = PlayerPrefs.GetInt("Skin");
+
+        Debug.LogWarning("Skin idx " + _skinIdx);
+
+        _playerAnimator.runtimeAnimatorController = _animatorController[_skinIdx];
+
+    }*/
+    /*
     public void Stay()
     {
         //_playerAnimator.Play("Idle");
@@ -39,7 +78,7 @@ public class PlayerAnimationManager : NetworkBehaviour
     {
         _playerAnimator.SetBool("Go", true);
     }
-
+    */
     public void Damage()
     {
         Debug.LogWarning("Player damage");

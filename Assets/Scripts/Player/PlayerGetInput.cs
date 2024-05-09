@@ -27,8 +27,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
         _playerSprite = _player.GetComponent<SpriteRenderer>();
         _playerStats = GetComponent<PlayerStats>();
         _playerAnimator = GetComponentInChildren<Animator>();
-
-
     }
 
 
@@ -73,12 +71,15 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                             Bullet no = _playerWeapon.Shoot();
                             no.SetDirection(_gun.transform.rotation);
                             
-                            _coolDown = 0;
+                            Debug.LogWarning("Shooting");
+                            
                         }
 
-                        if(HasInputAuthority)
-                            _playerStats.UseAmmo();
+                        //_coolDown = 0;
                     }
+                    _coolDown = 0;
+                    _playerStats.UseAmmo();
+
                 }
             }
         }
