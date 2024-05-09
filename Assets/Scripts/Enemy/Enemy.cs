@@ -37,12 +37,9 @@ public class Enemy : NetworkBehaviour
             return;
         }
 
-        foreach(var item in _directionList)
-        {
-            float distance = Vector3.Distance(transform.position, item.position);
-        }
+        
 
-        Vector2 playerPosition = _direction.position - transform.position;
+        Vector2 playerPosition = NearestPlayer().position - transform.position;
         playerPosition.Normalize();
 
         transform.Translate(playerPosition * _speed * Runner.DeltaTime);
@@ -66,7 +63,19 @@ public class Enemy : NetworkBehaviour
 
     private Transform NearestPlayer()
     {
-        return null;
+        List<float> listDistance = new List<float>();
+
+        foreach (var item in _directionList)
+        {
+            float distance = Vector3.Distance(transform.position, item.position);
+            listDistance.Add(distance);
+        }
+
+        if (listDistance[0] < listDistance[1])
+        {
+            return _directionList[0];
+        }
+        else return _directionList[1];
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
