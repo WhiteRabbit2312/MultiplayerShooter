@@ -16,7 +16,7 @@ MonoBehaviour:
   - Enemy: 1
     Item: 1
     Timer: 3000
-    Break: 500
+    Break: 2500
   - Enemy: 2
     Item: 2
     Timer: 6000

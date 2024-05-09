@@ -34,7 +34,7 @@ public class Shoot : NetworkBehaviour
         input.Set(data);
         return input;
     }
-    */
+    
     public override void FixedUpdateNetwork()
     {
         if (GetInput(out NetworkInputData data))
@@ -72,5 +72,5 @@ public class Shoot : NetworkBehaviour
 
             }
         }
-    }
+    }*/
 }

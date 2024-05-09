@@ -16,15 +16,18 @@ public class PlayerAnimationManager : NetworkBehaviour
 
     public override void Spawned()
     {
+        if (!HasInputAuthority) return;
         OnPlayerStay += Stay;
         OnPlayerMove += Move;
         OnPlayerDamage += Damage;
         OnPlayerDeath += Death;
 
+        Debug.Log("Animator set");
 
         _playerAnimator = GetComponent<Animator>();
         int skinIdx = PlayerPrefs.GetInt("Skin");
         _playerAnimator.runtimeAnimatorController = _animatorController[skinIdx];
+
     }
 
     public void Stay()

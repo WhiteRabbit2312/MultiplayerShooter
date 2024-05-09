@@ -4,7 +4,7 @@ using UnityEngine;
 using Fusion;
 using TMPro;
 
-public class Leaderboard : NetworkBehaviour
+public class Leaderboard : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] _kills;
     [SerializeField] private TextMeshProUGUI[] _damage;
@@ -12,7 +12,7 @@ public class Leaderboard : NetworkBehaviour
 
     private BasicSpawner _basicspawner;
 
-    public override void Spawned()
+    public void Awake()
     {
         _basicspawner = FindObjectOfType<BasicSpawner>();
 

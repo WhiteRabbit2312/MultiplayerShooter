@@ -45,21 +45,20 @@ namespace SecondTraineeGame
             }
 
             _playerSprite.sprite = _weaponSprites[_weapon.WeaponType()];
-            SetupSkinForEveryone();
+            SetupWeaponForEveryone();
 
         }
 
-        private NetworkObject _spawnedBulletNetworkObject;
+        //private NetworkObject _spawnedBulletNetworkObject;
         private Bullet _spawnedBullet;
         public Bullet Shoot()
         {
-     
-
-            if (_weapon != null)
+            if (_weapon != null && Runner != null && Runner.IsServer)
             {
-                _spawnedBulletNetworkObject = Runner.Spawn(_bullet[_weapon.BulletType()], _weaponPoint.position, Quaternion.identity);
+                Debug.LogWarning("Shoot bullet");
+                NetworkObject _spawnedBulletNetworkObject = Runner.Spawn(_bullet[_weapon.BulletType()], _weaponPoint.position, Quaternion.identity);
                 _spawnedBullet = _spawnedBulletNetworkObject.GetComponent<Bullet>();
-                PlayerStats.OnDamage.Invoke(_spawnedBullet.Damage);
+                
             }
 
             else Debug.LogError("Weapon is null");
@@ -67,7 +66,7 @@ namespace SecondTraineeGame
             return _spawnedBullet;
         }
 
-        private void SetupSkinForEveryone()
+        private void SetupWeaponForEveryone()
         {
             if (_weapon != null)
             {

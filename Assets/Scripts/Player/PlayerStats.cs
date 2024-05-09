@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using System;
+using TMPro;
 
 public class PlayerStats : NetworkBehaviour
 {
-    [Networked] private int _hp { get; set; } = 15;
-    [Networked] private int _ammo { get; set; }  = 1000;
-    [Networked] public int Kills { get; set; } = 0;
-    [Networked] public int Damage { get; set; } = 0;
+    private int _hp { get; set; } = 15;
+    private int _ammo { get; set; } = 1000;
+    public int Kills { get; set; } = 0;
+    public int Damage { get; set; } = 0;
+
     [HideInInspector] public bool Dead = false;
     public static Action OnKill;
     public static Action<int> OnDamage;
@@ -39,13 +41,19 @@ public class PlayerStats : NetworkBehaviour
             PlayerAnimationManager.OnPlayerDeath?.Invoke();
         }
 
-        ShowPlayerStats.OnHPChanged?.Invoke(_hp);
+        if(HasInputAuthority)
+        {
+            ShowPlayerStats.OnHPChanged?.Invoke(_hp);
+            
+        }
     }
 
     public void TakeAidKit()
     {
         _hp = FullHP;
-        ShowPlayerStats.OnHPChanged?.Invoke(_hp);
+
+        if (HasInputAuthority)
+            ShowPlayerStats.OnHPChanged?.Invoke(_hp);
     }
 
 
@@ -62,12 +70,16 @@ public class PlayerStats : NetworkBehaviour
             _ammo = 0;
         }
 
-        if(HasInputAuthority)
-            ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
+
+        ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
+        Debug.LogWarning("ShowPlayerStats");
+
+
     }
 
     public bool HaveAmmo()
     {
+       
         return _ammo != 0 ? true : false;
     }
 
@@ -81,13 +93,15 @@ public class PlayerStats : NetworkBehaviour
     public void ChangeKills()
     {
         Kills++;
-        ShowPlayerStats.OnKillsChanged?.Invoke(Kills);
+        if (HasInputAuthority)
+            ShowPlayerStats.OnKillsChanged?.Invoke(Kills);
     }
 
     public void ChangeDamage(int damage)
     {
-        Damage += damage;
         
+        Damage += damage;
+
     }
 
 }

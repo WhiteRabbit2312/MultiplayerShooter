@@ -9,6 +9,7 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
     [SerializeField] private float _speed = 5f;
     [SerializeField] private GameObject _gun;
     [SerializeField] private GameObject _player;
+    private Animator _playerAnimator;
 
 
     private SpriteRenderer _gunSprite;
@@ -17,31 +18,32 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
     private int _coolDown = 0;
     private bool _isFliped = false;
     private bool _isDead = false;
-    private PlayerStats playerStats;
+    private PlayerStats _playerStats;
 
     public override void Spawned()
     {
         _playerWeapon = GetComponentInChildren<PlayerWeapon>();
         _gunSprite = _gun.GetComponent<SpriteRenderer>();
         _playerSprite = _player.GetComponent<SpriteRenderer>();
-        playerStats = GetComponent<PlayerStats>();
+        _playerStats = GetComponent<PlayerStats>();
+        _playerAnimator = GetComponentInChildren<Animator>();
 
-            
+
     }
 
 
     public override void FixedUpdateNetwork()
     {
-        if (GetInput(out NetworkInputData data) && !playerStats.Dead)
+        if (GetInput(out NetworkInputData data) && !_playerStats.Dead)
         {
             transform.Translate(data.directionMove * _speed);
 
             if (data.directionMove.magnitude > 0)
-                PlayerAnimationManager.OnPlayerMove?.Invoke(); //_playerAnimator.Play("Go");
+                _playerAnimator.SetBool("Go", true);
 
-            else PlayerAnimationManager.OnPlayerStay?.Invoke(); //_playerAnimator.Play("Idle");
-            
-            
+            else _playerAnimator.SetBool("Go", false);
+
+
             if (data.directionShoot.magnitude > 0)
             {
                 Vector2 direction = data.directionShoot;
@@ -62,17 +64,22 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 
                 _coolDown++;
 
-                if (playerStats.HaveAmmo() && _coolDown == 10)
+                if (_playerStats.HaveAmmo() && _coolDown == 10)
                 {
-                    Bullet no = _playerWeapon.Shoot();
-                    no.SetDirection(_gun.transform.rotation);
-                    playerStats.UseAmmo();
-                    _coolDown = 0;
+                    if (_playerWeapon != null)
+                    {
+                        if (Runner.IsServer)
+                        {
+                            Bullet no = _playerWeapon.Shoot();
+                            no.SetDirection(_gun.transform.rotation);
+                            
+                            _coolDown = 0;
+                        }
+
+                        if(HasInputAuthority)
+                            _playerStats.UseAmmo();
+                    }
                 }
-
-
-                //}
-                
             }
         }
     }

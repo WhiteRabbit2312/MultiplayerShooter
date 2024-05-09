@@ -64,6 +64,7 @@ public class Enemy : NetworkBehaviour
         {
             _enemyAnimator.SetTrigger("Damage");
             Health -= bullet.Damage;
+            PlayerStats.OnDamage.Invoke(bullet.Damage);
 
             Runner.Despawn(bullet.Object);
 
