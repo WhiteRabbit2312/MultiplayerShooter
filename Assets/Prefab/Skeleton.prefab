@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7156763506077141169}
   - component: {fileID: 4365527848547810818}
   - component: {fileID: 4916229292200427726}
+  - component: {fileID: 343162734647081806}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -106,6 +107,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &343162734647081806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3382623897059469651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 4916229292200427726}
+  TotalWords: 1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 00000000facf1e9bc97c3bac5d421d0c6ef1383bf9ea419f5caea620
+  TriggerHashes: 000000005a5164161ae6174d
 --- !u!1 &7054215135372665651
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +184,7 @@ MonoBehaviour:
   - {fileID: 1814001778780904224}
   - {fileID: 6167758936776568904}
   - {fileID: 2663261416150392765}
+  - {fileID: 343162734647081806}
 --- !u!114 &1814001778780904224
 MonoBehaviour:
   m_ObjectHideFlags: 0

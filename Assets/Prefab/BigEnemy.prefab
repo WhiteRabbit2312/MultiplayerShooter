@@ -56,6 +56,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 9041056152450459534}
   - {fileID: 6882472302086597455}
+  - {fileID: 6852082916898893948}
 --- !u!114 &9041056152450459534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +180,7 @@ GameObject:
   - component: {fileID: 7378805598893858920}
   - component: {fileID: 6198489361270708992}
   - component: {fileID: 7475323412461296118}
+  - component: {fileID: 6852082916898893948}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: BigEnemy
@@ -274,3 +276,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6852082916898893948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794207651226618210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 7475323412461296118}
+  TotalWords: 1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 000000007b35ca2890f642d52b1c0a688e58edd76cff19ec5f4c3cdbcb721a7bf8c13f4cf9ea419f5caea620
+  TriggerHashes: 000000005a5164161ae6174d

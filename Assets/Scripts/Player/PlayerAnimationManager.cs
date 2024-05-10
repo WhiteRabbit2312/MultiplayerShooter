@@ -16,18 +16,10 @@ public class PlayerAnimationManager : NetworkBehaviour
 
     public override void Spawned()
     {
-        
-        
-
         _playerAnimator = GetComponent<Animator>();
         _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
         _skinIdx = 0;
         RPC_ChangeSkinID(PlayerPrefs.GetInt("Skin"));
-       
-           
-        OnPlayerDamage += Damage;
-        OnPlayerDeath += Death;
-       
     }
     private void ChangeSkin()
     {
@@ -78,16 +70,16 @@ public class PlayerAnimationManager : NetworkBehaviour
     {
         _playerAnimator.SetBool("Go", true);
     }
-    */
+    
     public void Damage()
     {
         Debug.LogWarning("Player damage");
         _playerAnimator.SetTrigger("Damage");
     }
-
+    
     public void Death()
     {
         Debug.LogWarning("Dead animation");
         _playerAnimator.SetTrigger("Death");
-    }
+    }*/
 }

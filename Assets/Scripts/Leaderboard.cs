@@ -14,8 +14,6 @@ public class Leaderboard : MonoBehaviour
 
     public void Awake()
     {
-        _basicspawner = FindObjectOfType<BasicSpawner>();
-
         GameManager.OnGameOver += EnableaderBoard;
         GameManager.OnGameOver += KillOnLeaderboard;
     }
@@ -27,6 +25,7 @@ public class Leaderboard : MonoBehaviour
 
     private void KillOnLeaderboard()
     {
+        _basicspawner = FindObjectOfType<BasicSpawner>();
         int i = 0;
         foreach(var item in _basicspawner.SpawnedCharactersStats)
         {

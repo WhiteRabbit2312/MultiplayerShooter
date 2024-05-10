@@ -17,9 +17,16 @@ public class Enemy : NetworkBehaviour
     private bool _causeDamage = false;
     private PlayerStats _playerStats;//TODO: Initialize player
 
+    private int _firstPlayer = 0;
+    private int _secondPlayer = 1;
+    private int _requieredPlayerAmount = 2;
+    
+
     public void Init(List<Transform> transformList)
     {
         _directionList = transformList;
+
+
     }
 
     public override void Spawned()
@@ -42,6 +49,7 @@ public class Enemy : NetworkBehaviour
         Vector2 playerPosition = NearestPlayer().position - transform.position;
         playerPosition.Normalize();
 
+        
         transform.Translate(playerPosition * _speed * Runner.DeltaTime);
 
         if (_causeDamage)
@@ -71,11 +79,22 @@ public class Enemy : NetworkBehaviour
             listDistance.Add(distance);
         }
 
-        if (listDistance[0] < listDistance[1])
+        if (_directionList.Count == _requieredPlayerAmount)
         {
-            return _directionList[0];
+            if (listDistance[_firstPlayer] < listDistance[_secondPlayer]
+                && !_directionList[_firstPlayer].GetComponent<PlayerStats>().Dead)
+            {
+                return _directionList[_firstPlayer];
+            }
+            else
+            {
+                if (!_directionList[_secondPlayer].GetComponent<PlayerStats>().Dead)
+                    return _directionList[_secondPlayer];
+                else return null;
+            }
         }
-        else return _directionList[1];
+
+        else return _directionList[_firstPlayer];
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -97,9 +116,13 @@ public class Enemy : NetworkBehaviour
 
         if (collision.TryGetComponent(out PlayerStats playerStats))
         {
-            
             _playerStats = playerStats;
             _causeDamage = true;
+        }
+
+        if(collision.tag == "Explosion")
+        {
+            Runner.Despawn(Object);
         }
     }
 

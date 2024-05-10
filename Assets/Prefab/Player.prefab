@@ -142,7 +142,7 @@ MonoBehaviour:
   ApplyTiming: 2
   SyncSettings: 79
   StateHashes: 000000002b1a167c79406955f4b7ec2351a9710c5a51641619ff57152afa8626a8b5caa3
-  TriggerHashes: 000000005a5164162afa8626
+  TriggerHashes: 00000000
 --- !u!1 &4989813496094906164
 GameObject:
   m_ObjectHideFlags: 0

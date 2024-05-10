@@ -15,15 +15,22 @@ public class Timer : NetworkBehaviour
     [Networked] private int _seconds { get; set; }
 
     private int _timer;
-    private int _breakTimer;
+    [Networked] private int _breakTimer { get; set; }
     private bool _canRunTime = false;
+    private bool _startGame = false;
     
     public override void Spawned()
     {
         GameManager.OnGameplay += SetTime;
+        GameManager.OnStartGame += StartGame;
         GameManager.OnBreak += StopCount;
         int waveIdx = _waveManager.WaveCount;
         _breakTimer = _wave.waveStat[waveIdx].Break;
+    }
+
+    private void StartGame()
+    {
+        _startGame = true;
     }
 
     private void SetTime() 
@@ -41,30 +48,33 @@ public class Timer : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (_canRunTime)
+        if (_startGame)
         {
-            TimeCount(_timer);
-            _timer--;
-
-            if (_timer == 0)
+            if (_canRunTime)
             {
-                Debug.Log("Break");
+                TimeCount(_timer);
+                _timer--;
 
-                GameManager.Break();
-                int waveIdx = _waveManager.WaveCount;
-                _breakTimer = _wave.waveStat[waveIdx].Break;
+                if (_timer == 0)
+                {
+                    int waveIdx = _waveManager.WaveCount;
+                    _breakTimer = _wave.waveStat[waveIdx].Break;
+                    _canRunTime = false;
+                    GameManager.Break();
+                    
+                }
             }
-        }
 
-        else
-        {
-
-            RPC_changeBreakTime();
-            _breakTimer--;
-            if(_breakTimer == 0)
+            else
             {
-                Debug.Log("Gameplay");
-                GameManager.Gameplay();
+
+                
+                _breakTimer--;
+                RPC_changeBreakTime();
+                if (_breakTimer == 0)
+                {
+                    GameManager.Gameplay();
+                }
             }
         }
     }
@@ -83,6 +93,7 @@ public class Timer : NetworkBehaviour
         _timerText.text = _minutes + " : " + _seconds;
     }
 
+    [Rpc]
     private void RPC_changeBreakTime()
     {
         _breakText.text = "Break time " + (_breakTimer / 50).ToString();

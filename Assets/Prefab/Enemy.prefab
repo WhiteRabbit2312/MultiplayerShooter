@@ -56,6 +56,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 3424395653461458782}
   - {fileID: -2110674029017760756}
+  - {fileID: 3169667885022445163}
 --- !u!114 &3424395653461458782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +180,7 @@ GameObject:
   - component: {fileID: 3961672145071867703}
   - component: {fileID: 6858159280564587012}
   - component: {fileID: 7141684089512529343}
+  - component: {fileID: 3169667885022445163}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -274,3 +276,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3169667885022445163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3477494974624193244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 7141684089512529343}
+  TotalWords: 1
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 00000000409e1702732d3235e7131495d4a031a243bb4806e6ffafb9
+  TriggerHashes: 000000005a5164161ae6174d

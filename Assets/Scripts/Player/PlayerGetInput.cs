@@ -35,6 +35,12 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
     public override void FixedUpdateNetwork()
     {
+        if (_playerStats.Dead)
+        {
+            _playerAnimator.SetBool("Death", true);
+            _gun.SetActive(false);
+        }
+
         if (GetInput(out NetworkInputData data) && !_playerStats.Dead)
         {
             
@@ -66,23 +72,28 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 
                 _coolDown++;
 
-                if (_playerStats.HaveAmmo() && _coolDown == 10)
+                if (_coolDown == 10)
                 {
                     if (_playerWeapon != null)
                     {
-                        if (Runner.IsServer)
+                        if (Runner.IsServer && _playerStats.HaveAmmo())
                         {
                             Bullet no = _playerWeapon.Shoot();
                             no.SetDirection(_gun.transform.rotation);
-                            
+                            _playerStats.UseAmmo();
                             Debug.LogWarning("Shooting");
                             
+                        }
+
+                        if(Runner.IsClient && _playerStats.HaveAmmo())
+                        {
+                            _playerStats.UseAmmo();
                         }
 
                         //_coolDown = 0;
                     }
                     _coolDown = 0;
-                    _playerStats.UseAmmo();
+                    //_playerStats.UseAmmo();
 
                 }
             }

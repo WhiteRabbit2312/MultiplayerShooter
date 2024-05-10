@@ -6,6 +6,7 @@ using System;
 
 public class GameManager : NetworkBehaviour
 {
+    public static event Action OnStartGame;
     public static event Action OnBreak;
     public static event Action OnGameplay;
     public static event Action OnGameOver;
@@ -15,6 +16,11 @@ public class GameManager : NetworkBehaviour
     public override void Spawned()
     {
         _basicspawner = FindObjectOfType<BasicSpawner>();
+    }
+
+    public static void StartGame()
+    {
+        OnStartGame?.Invoke();
     }
 
     public static void Break()
@@ -27,16 +33,15 @@ public class GameManager : NetworkBehaviour
         OnGameplay?.Invoke();
     }
 
-    /*
-    public static void Death()
-    {
-        OnDeath?.Invoke();
- 
-    }*/
+    bool _once = true;// TODO
 
     public override void FixedUpdateNetwork()
     {
-        
+        if(_basicspawner.SpawnedCharactersStats.Count == 2 && _once)
+        {
+            StartGame();
+            _once = false;
+        }
 
         if (CheckPlayers())
         {
@@ -47,8 +52,6 @@ public class GameManager : NetworkBehaviour
 
     public bool CheckPlayers()
     {
-
-        
         foreach (var item in _basicspawner.SpawnedCharactersStats)
         {
             if (!item.Value.Dead)
