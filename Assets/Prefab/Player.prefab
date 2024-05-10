@@ -228,6 +228,8 @@ MonoBehaviour:
   _speed: 0.05
   _gun: {fileID: 8872959349416933504}
   _player: {fileID: 4351309429388637090}
+  _maxY: 18
+  _maxX: 33
 --- !u!114 &6435947471367899822
 MonoBehaviour:
   m_ObjectHideFlags: 0

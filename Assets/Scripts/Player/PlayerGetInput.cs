@@ -9,6 +9,9 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
     [SerializeField] private float _speed = 5f;
     [SerializeField] private GameObject _gun;
     [SerializeField] private GameObject _player;
+    [SerializeField] private int _maxY;
+    [SerializeField] private int _maxX;
+
     private Animator _playerAnimator;
 
 
@@ -34,8 +37,9 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
     {
         if (GetInput(out NetworkInputData data) && !_playerStats.Dead)
         {
+            
             transform.Translate(data.directionMove * _speed);
-
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x , -_maxX, _maxX), Mathf.Clamp(transform.position.y , -_maxY, _maxY), 0);
             if (data.directionMove.magnitude > 0)
                 _playerAnimator.SetBool("Go", true);
 

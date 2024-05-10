@@ -58,8 +58,8 @@ public class Timer : NetworkBehaviour
 
         else
         {
-            
-            _breakText.text = "Break time " + (_breakTimer / 50).ToString();
+
+            RPC_changeBreakTime();
             _breakTimer--;
             if(_breakTimer == 0)
             {
@@ -81,6 +81,11 @@ public class Timer : NetworkBehaviour
     private void RPC_changeTime()
     {
         _timerText.text = _minutes + " : " + _seconds;
+    }
+
+    private void RPC_changeBreakTime()
+    {
+        _breakText.text = "Break time " + (_breakTimer / 50).ToString();
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
