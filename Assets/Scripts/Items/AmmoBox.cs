@@ -6,9 +6,9 @@ using TMPro;
 
 public class AmmoBox : NetworkBehaviour, IItemEffect
 {
-    public void EnableEffect(PlayerStats playerStats)
+    public void EnableEffect(PlayerWeapon playerStats)
     {
-        playerStats.TakeAmmoBox();
+        playerStats.TakeAmooBox();
         Runner.Despawn(Object);
     }
 }

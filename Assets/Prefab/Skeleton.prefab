@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 1
   Health: 20
-  _speed: 0
+  _speed: 0.5
   _layerMask:
     serializedVersion: 2
     m_Bits: 1

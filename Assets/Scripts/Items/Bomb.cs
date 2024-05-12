@@ -7,7 +7,7 @@ public class Bomb : NetworkBehaviour, IItemEffect
 {
     [SerializeField] private GameObject _explosion;
 
-    public void EnableEffect(PlayerStats playerStats)
+    public void EnableEffect(PlayerWeapon playerStats)
     {
         Debug.LogWarning("Explode");
         Runner.Spawn(_explosion, transform.position, Quaternion.identity);

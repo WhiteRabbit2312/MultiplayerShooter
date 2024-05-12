@@ -9,6 +9,7 @@ public class SkeletonShooting : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        Debug.LogWarning("Spawn skeleton bullet");
         if(_timer == _spawnPerSecond)
         {
             Runner.Spawn(_bullet);

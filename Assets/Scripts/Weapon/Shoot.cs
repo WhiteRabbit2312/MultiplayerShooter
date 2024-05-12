@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Fusion;
-using SecondTraineeGame;
+
 
 public class Shoot : NetworkBehaviour
 {

@@ -15,18 +15,14 @@ public class Enemy : NetworkBehaviour
     private Animator _enemyAnimator;
     private float _damagePerTime = 60f;
     private bool _causeDamage = false;
-    private PlayerStats _playerStats;//TODO: Initialize player
 
     private int _firstPlayer = 0;
     private int _secondPlayer = 1;
     private int _requieredPlayerAmount = 2;
-    
 
     public void Init(List<Transform> transformList)
     {
         _directionList = transformList;
-
-
     }
 
     public override void Spawned()
@@ -44,8 +40,6 @@ public class Enemy : NetworkBehaviour
             return;
         }
 
-        
-
         Vector2 playerPosition = NearestPlayer().position - transform.position;
         playerPosition.Normalize();
 
@@ -60,10 +54,6 @@ public class Enemy : NetworkBehaviour
 
                 Debug.LogWarning("Player get damage");
 
-                if (_playerStats != null)
-                {
-                    _playerStats.GetDamage(Damage);
-                }
             }
             _damagePerTime++;
         }
@@ -81,17 +71,11 @@ public class Enemy : NetworkBehaviour
 
         if (_directionList.Count == _requieredPlayerAmount)
         {
-            if (listDistance[_firstPlayer] < listDistance[_secondPlayer]
-                && !_directionList[_firstPlayer].GetComponent<PlayerStats>().Dead)
+            if (listDistance[_firstPlayer] < listDistance[_secondPlayer])
             {
                 return _directionList[_firstPlayer];
             }
-            else
-            {
-                if (!_directionList[_secondPlayer].GetComponent<PlayerStats>().Dead)
-                    return _directionList[_secondPlayer];
-                else return null;
-            }
+            else return _directionList[_secondPlayer];
         }
 
         else return _directionList[_firstPlayer];
@@ -116,8 +100,7 @@ public class Enemy : NetworkBehaviour
 
         if (collision.TryGetComponent(out PlayerStats playerStats))
         {
-            _playerStats = playerStats;
-            _causeDamage = true;
+            playerStats.GetDamage(Damage);
         }
 
         if(collision.tag == "Explosion")

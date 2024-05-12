@@ -5,7 +5,7 @@ using System;
 using Fusion;
 using TMPro;
 
-public class ShowPlayerStats : NetworkBehaviour
+public class ShowPlayerStats : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _hpText;
     [SerializeField] private TextMeshProUGUI _ammoText;
@@ -15,7 +15,7 @@ public class ShowPlayerStats : NetworkBehaviour
     public static Action<int> OnAmmoChanged;
     public static Action<int> OnKillsChanged;
 
-    public override void Spawned()
+    public void Awake()
     {
         OnHPChanged += HP;
         OnAmmoChanged += Ammo;
@@ -31,7 +31,6 @@ public class ShowPlayerStats : NetworkBehaviour
 
     private void Ammo(int ammo)
     {
-
         _ammoText.text = "Ammo: " + ammo.ToString() + "/80";
     }
 

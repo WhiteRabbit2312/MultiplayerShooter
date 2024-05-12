@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
-using SecondTraineeGame;
+
 
 public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 {
@@ -35,15 +35,8 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
     public override void FixedUpdateNetwork()
     {
-        if (_playerStats.Dead)
+        if (GetInput(out NetworkInputData data))
         {
-            _playerAnimator.SetBool("Death", true);
-            _gun.SetActive(false);
-        }
-
-        if (GetInput(out NetworkInputData data) && !_playerStats.Dead)
-        {
-            
             transform.Translate(data.directionMove * _speed);
             transform.position = new Vector3(Mathf.Clamp(transform.position.x , -_maxX, _maxX), Mathf.Clamp(transform.position.y , -_maxY, _maxY), 0);
             if (data.directionMove.magnitude > 0)
@@ -51,6 +44,13 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
             else _playerAnimator.SetBool("Go", false);
 
+            /*
+            if (_playerStats.Dead)
+            {
+
+                _playerAnimator.SetBool("Death", true);
+                _gun.SetActive(false);
+            }*/
 
             if (data.directionShoot.magnitude > 0)
             {
@@ -76,24 +76,16 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 {
                     if (_playerWeapon != null)
                     {
-                        if (Runner.IsServer && _playerStats.HaveAmmo())
+                        if (Runner.IsServer)
                         {
                             Bullet no = _playerWeapon.Shoot();
                             no.SetDirection(_gun.transform.rotation);
-                            _playerStats.UseAmmo();
-                            Debug.LogWarning("Shooting");
                             
-                        }
+                            Debug.LogWarning("Shooting");
 
-                        if(Runner.IsClient && _playerStats.HaveAmmo())
-                        {
-                            _playerStats.UseAmmo();
                         }
-
-                        //_coolDown = 0;
                     }
                     _coolDown = 0;
-                    //_playerStats.UseAmmo();
 
                 }
             }

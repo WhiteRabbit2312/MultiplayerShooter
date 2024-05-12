@@ -1,32 +1,42 @@
 using UnityEngine;
-namespace SecondTraineeGame
+
+public class MachineGun : Weapon
 {
-    public class MachineGun : Weapon
+    private int _weaponTypeIdx = 0;
+    private int _bulletTypeIdx = 0;
+    private int _bulletAmount = 80;
+
+    public override int Bullets
     {
-        private int _weaponTypeIdx = 0;
-        private int _bulletTypeIdx = 0;
-        private int _range = 300;
-        public override int WeaponType()
-        {
-            return _weaponTypeIdx;
-        }
+        get; set;
+    }
 
-        public override int BulletType()
-        {
-            return _bulletTypeIdx;
-        }
+    public override int WeaponType()
+    {
+        return _weaponTypeIdx;
+    }
 
-        public override void Fire(GameObject bullet, Transform firePoint)
-        {
-            if (Runner == null)
-                Debug.LogWarning("Runner machine gun is null");
-            else
-                Runner.Spawn(bullet, firePoint.position, Quaternion.identity);
-        }
+    public override int BulletType()
+    {
+        return _bulletTypeIdx;
+    }
 
-        public override int FireRange()
-        {
-            return _range;
-        }
+    public override bool HasBullets()
+    {
+        if (_bulletAmount == 0)
+            return false;
+        else return true;
+    }
+
+    public override void Fire()
+    {
+        _bulletAmount--;
+        Bullets = _bulletAmount;
+    }
+
+    public override void TakeBullet()
+    {
+        _bulletAmount = 80;
     }
 }
+

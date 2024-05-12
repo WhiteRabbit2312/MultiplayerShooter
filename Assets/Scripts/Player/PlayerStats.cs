@@ -30,21 +30,24 @@ public class PlayerStats : NetworkBehaviour
 
     public void GetDamage(int change)
     {
-
-        if (_hp > 0)
-        {
-            _hp -= change;
-            _playerAnimator.SetBool("Damage", true);
-        }
-
-        else
-        {
-            _hp = 0;
-            Dead = true;
-        }
+        
 
         if (HasInputAuthority)
         {
+            if (_hp > 0)
+            {
+                _hp -= change;
+                _playerAnimator.SetBool("Damage", true);
+            }
+
+            else
+            {
+                _hp = 0;
+                Dead = true;
+            }
+
+
+
             ShowPlayerStats.OnHPChanged?.Invoke(_hp);
 
         }

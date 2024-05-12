@@ -6,9 +6,9 @@ using Fusion;
 
 public class AidKit : NetworkBehaviour, IItemEffect
 {
-    public void EnableEffect(PlayerStats playerStats)
+    public void EnableEffect(PlayerWeapon playerWeapon)
     {
-        playerStats.TakeAidKit();
+        //playerStats.TakeAidKit();
         Runner.Despawn(Object);
     }
 }
