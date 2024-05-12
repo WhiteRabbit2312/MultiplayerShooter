@@ -8,8 +8,6 @@ public class Enemy : NetworkBehaviour
     public int Damage;
     public int Health;
     [SerializeField] private float _speed;
-    [SerializeField] private LayerMask _layerMask;
-    private Transform _direction;
 
     private List<Transform> _directionList = new List<Transform>();
     private Animator _enemyAnimator;
@@ -96,11 +94,6 @@ public class Enemy : NetworkBehaviour
                 PlayerStats.OnKill?.Invoke();
                 Runner.Despawn(Object);
             }
-        }
-
-        if (collision.TryGetComponent(out PlayerStats playerStats))
-        {
-            playerStats.GetDamage(Damage);
         }
 
         if(collision.tag == "Explosion")

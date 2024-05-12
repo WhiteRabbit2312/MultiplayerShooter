@@ -21,14 +21,13 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
     private int _coolDown = 0;
     private bool _isFliped = false;
     private bool _isDead = false;
-    private PlayerStats _playerStats;
+    private bool _damaged = false;
 
     public override void Spawned()
     {
         _playerWeapon = GetComponentInChildren<PlayerWeapon>();
         _gunSprite = _gun.GetComponent<SpriteRenderer>();
         _playerSprite = _player.GetComponent<SpriteRenderer>();
-        _playerStats = GetComponent<PlayerStats>();
         _playerAnimator = GetComponentInChildren<Animator>();
     }
 
@@ -42,7 +41,14 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
             if (data.directionMove.magnitude > 0)
                 _playerAnimator.SetBool("Go", true);
 
+            else if (_damaged)
+            {
+                _playerAnimator.SetBool("Damage", true);
+            }
+
             else _playerAnimator.SetBool("Go", false);
+
+
 
             /*
             if (_playerStats.Dead)
@@ -90,5 +96,17 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 }
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(TryGetComponent(out Enemy enemy))
+            _damaged = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (TryGetComponent(out Enemy enemy))
+            _damaged = false;
     }
 }

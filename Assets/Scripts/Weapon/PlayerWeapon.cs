@@ -57,7 +57,6 @@ public class PlayerWeapon : NetworkBehaviour
                 NetworkObject _spawnedBulletNetworkObject = Runner.Spawn(_bullet[_weapon.BulletType()], _weaponPoint.position, Quaternion.identity);
                 _spawnedBullet = _spawnedBulletNetworkObject.GetComponent<Bullet>();
                 _weapon.Fire();
-                ShowPlayerStats.OnAmmoChanged?.Invoke(_weapon.Bullets);
             }
         }
 
@@ -69,7 +68,6 @@ public class PlayerWeapon : NetworkBehaviour
     public void TakeAmooBox()
     {
         _weapon.TakeBullet();
-        ShowPlayerStats.OnAmmoChanged?.Invoke(_weapon.Bullets);
     }
 
     private void SetupWeaponForEveryone()

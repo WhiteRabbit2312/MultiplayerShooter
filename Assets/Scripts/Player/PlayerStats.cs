@@ -15,6 +15,7 @@ public class PlayerStats : NetworkBehaviour
     [HideInInspector] public bool Dead = false;
     public static Action OnKill;
     public static Action<int> OnDamage;
+    public static Action<int> OnAmmo;
 
     private Animator _playerAnimator;
     private const int AdditionlHP = 4;
@@ -30,8 +31,6 @@ public class PlayerStats : NetworkBehaviour
 
     public void GetDamage(int change)
     {
-        
-
         if (HasInputAuthority)
         {
             if (_hp > 0)
@@ -67,22 +66,11 @@ public class PlayerStats : NetworkBehaviour
     }
 
 
-    public void UseAmmo()
+    public void UseAmmo(int ammo)
     {
-
-        if (_ammo > 0)
-        {
-            _ammo--;
-        }
-
-        else
-        {
-            _ammo = 0;
-        }
-
         if (HasInputAuthority)
         {
-            ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
+            ShowPlayerStats.OnAmmoChanged?.Invoke(ammo);
         }
 
     }
