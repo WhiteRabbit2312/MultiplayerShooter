@@ -7,6 +7,8 @@ public class Health : MonoBehaviour
     private int _hp = 15;
     public bool IsDead = false;
 
+
+
     public void PlayerDamaged(int damage)
     {
         _hp -= damage;

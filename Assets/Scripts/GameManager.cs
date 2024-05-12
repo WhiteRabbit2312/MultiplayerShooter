@@ -52,9 +52,9 @@ public class GameManager : NetworkBehaviour
 
     public bool CheckPlayers()
     {
-        foreach (var item in _basicspawner.SpawnedCharactersStats)
+        foreach (var item in _basicspawner.SpawnedCharactersHealth)
         {
-            if (!item.Value.Dead)
+            if (!item.Value.GetDead())
                 return false;
         }
 

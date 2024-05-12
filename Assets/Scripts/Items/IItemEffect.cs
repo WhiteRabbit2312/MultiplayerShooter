@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IItemEffect 
 {
-    public void EnableEffect(PlayerWeapon playerWeapon);
+    public void EnableEffect(PlayerWeapon playerWeapon, PlayerStats playerStats);
 }

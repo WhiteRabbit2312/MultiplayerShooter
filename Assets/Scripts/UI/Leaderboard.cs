@@ -4,7 +4,7 @@ using UnityEngine;
 using Fusion;
 using TMPro;
 
-public class Leaderboard : MonoBehaviour
+public class Leaderboard : NetworkBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] _kills;
     [SerializeField] private TextMeshProUGUI[] _damage;
@@ -20,8 +20,16 @@ public class Leaderboard : MonoBehaviour
 
     private void EnableaderBoard()
     {
+        RPC_openLeaderboard();
+    }
+
+    [Rpc]
+    private void RPC_openLeaderboard()
+    {
         _leaderBoard.SetActive(true);
     }
+
+  
 
     private void KillOnLeaderboard()
     {

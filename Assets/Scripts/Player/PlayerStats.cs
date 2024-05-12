@@ -7,8 +7,8 @@ using TMPro;
 
 public class PlayerStats : NetworkBehaviour
 {
-    private int _hp { get; set; } = 15;
-    private int _ammo { get; set; } = 80;
+    private int _hp = 15;
+    private int _ammo = 80;
     public int Kills { get; set; } = 0;
     public int Damage { get; set; } = 0;
 
@@ -19,7 +19,7 @@ public class PlayerStats : NetworkBehaviour
 
     private Animator _playerAnimator;
     private const int AdditionlHP = 4;
-    private const int AdditionalAmmo = 30;
+    private const int AdditionalAmmo = 80;
 
 
     public override void Spawned()
@@ -31,22 +31,21 @@ public class PlayerStats : NetworkBehaviour
 
     public void GetDamage(int change)
     {
+
+        if (_hp > 0)
+        {
+            _hp -= change;
+            //_playerAnimator.SetBool("Damage", true);
+        }
+
+        else
+        {
+            _hp = 0;
+        }
+
+
         if (HasInputAuthority)
         {
-            if (_hp > 0)
-            {
-                _hp -= change;
-                _playerAnimator.SetBool("Damage", true);
-            }
-
-            else
-            {
-                _hp = 0;
-                Dead = true;
-            }
-
-
-
             ShowPlayerStats.OnHPChanged?.Invoke(_hp);
 
         }
@@ -66,27 +65,26 @@ public class PlayerStats : NetworkBehaviour
     }
 
 
-    public void UseAmmo(int ammo)
+    public void UseAmmo()
     {
+        if(_ammo > 0)
+            _ammo--;
+
         if (HasInputAuthority)
         {
-            ShowPlayerStats.OnAmmoChanged?.Invoke(ammo);
+            ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
         }
 
     }
 
-    public bool HaveAmmo()
-    {
-        return _ammo != 0 ? true : false;
-    }
-
     public void TakeAmmoBox()
     {
+
+        _ammo = AdditionalAmmo;
+
+
         if (HasInputAuthority)
         {
-            _ammo += AdditionalAmmo;
-            if (_ammo > 80)
-                _ammo = 80;
             ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
         }
     }

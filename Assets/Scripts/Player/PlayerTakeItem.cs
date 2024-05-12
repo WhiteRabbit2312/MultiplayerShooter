@@ -8,7 +8,8 @@ public class PlayerTakeItem : NetworkBehaviour
         if(collision.TryGetComponent(out IItemEffect itemEffect))
         {
             PlayerWeapon weapon = gameObject.GetComponentInChildren<PlayerWeapon>();
-            itemEffect.EnableEffect(weapon);
+            PlayerStats stats = gameObject.GetComponent<PlayerStats>();
+            itemEffect.EnableEffect(weapon, stats);
         }
     }
 }

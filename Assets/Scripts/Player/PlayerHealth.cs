@@ -34,15 +34,20 @@ public class PlayerHealth : NetworkBehaviour
         _health = gameObject.AddComponent<Health>();
     }
 
+    public bool GetDead()
+    {
+        bool isDead = _health.IsDead;
+        return isDead;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.LogWarning("Player damaged");
         if (collision.TryGetComponent(out Enemy enemy))
         {
-            //_animator.Play("Damage");
             Debug.LogWarning("Player damaged try component");
             _health.PlayerDamaged(enemy.Damage);
+            
         }
     }
 }

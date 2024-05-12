@@ -5,7 +5,7 @@ using System;
 using Fusion;
 using TMPro;
 
-public class ShowPlayerStats : MonoBehaviour
+public class ShowPlayerStats : NetworkBehaviour
 {
     [SerializeField] private TextMeshProUGUI _hpText;
     [SerializeField] private TextMeshProUGUI _ammoText;
@@ -24,7 +24,6 @@ public class ShowPlayerStats : MonoBehaviour
 
     private void HP(int hp)
     {
-
         _hpText.text = "HP: " + hp.ToString() + "/15";
 
     }

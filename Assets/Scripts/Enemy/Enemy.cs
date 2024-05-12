@@ -11,8 +11,6 @@ public class Enemy : NetworkBehaviour
 
     private List<Transform> _directionList = new List<Transform>();
     private Animator _enemyAnimator;
-    private float _damagePerTime = 60f;
-    private bool _causeDamage = false;
 
     private int _firstPlayer = 0;
     private int _secondPlayer = 1;
@@ -43,18 +41,6 @@ public class Enemy : NetworkBehaviour
 
         
         transform.Translate(playerPosition * _speed * Runner.DeltaTime);
-
-        if (_causeDamage)
-        {
-            if (_damagePerTime >= 60)
-            {
-                _damagePerTime = 0;
-
-                Debug.LogWarning("Player get damage");
-
-            }
-            _damagePerTime++;
-        }
     }
 
     private Transform NearestPlayer()
@@ -105,13 +91,5 @@ public class Enemy : NetworkBehaviour
     private void DestroyEnemy()
     {
         Runner.Despawn(Object);
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            _causeDamage = false;
-        }
     }
 }

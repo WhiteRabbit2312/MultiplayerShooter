@@ -51,6 +51,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private  Dictionary<PlayerRef, NetworkObject> SpawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     public  Dictionary<PlayerRef, PlayerStats> SpawnedCharactersStats = new Dictionary<PlayerRef, PlayerStats>();
+    public  Dictionary<PlayerRef, PlayerHealth> SpawnedCharactersHealth = new Dictionary<PlayerRef, PlayerHealth>();
 
     public List<Transform> CharacterPosition
     {
@@ -75,7 +76,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             // Keep track of the player avatars for easy access
             SpawnedCharacters.Add(player, networkPlayerObject);
             PlayerStats playerStats = networkPlayerObject.GetComponent<PlayerStats>();
+            PlayerHealth playerHealth = networkPlayerObject.GetComponent<PlayerHealth>();
             SpawnedCharactersStats.Add(player, playerStats);
+            SpawnedCharactersHealth.Add(player, playerHealth);
         }
     }
 
