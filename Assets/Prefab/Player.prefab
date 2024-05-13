@@ -221,7 +221,7 @@ MonoBehaviour:
   ApplyTiming: 2
   SyncSettings: 79
   StateHashes: 000000002b1a167c79406955f4b7ec2351a9710c5a51641619ff57152afa8626a8b5caa3
-  TriggerHashes: 0000000029c4bcae
+  TriggerHashes: 000000006c54c8112ed547e7
 --- !u!1 &4989813496094906164
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e67ba2f0f8a504f8d81dc04ca34ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dead: 0
+  _Kills: 0
+  _Damage: 0
+  _Dead: 0
 --- !u!114 &5037077944631607452
 MonoBehaviour:
   m_ObjectHideFlags: 0

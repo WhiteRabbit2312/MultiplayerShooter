@@ -17,7 +17,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
     private SpriteRenderer _playerSprite;
 
     private PlayerWeapon _playerWeapon;
-    private PlayerHealth _playerHealth;
     private PlayerStats _playerStats;
 
     private int _coolDown = 0;
@@ -33,7 +32,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
         _playerWeapon = GetComponentInChildren<PlayerWeapon>();
         _playerSprite = _player.GetComponent<SpriteRenderer>();
         _playerAnimator = GetComponentInChildren<Animator>();
-        _playerHealth = GetComponent<PlayerHealth>();
         _playerStats = GetComponent<PlayerStats>();
 
     }
@@ -48,6 +46,7 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
             if (_damaged)
             {
+                Debug.LogError("Damaged animation");
                 if (_timer == _damagePerTime)
                 {
                     _timer = 0;
@@ -59,6 +58,8 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
             else
             {
+                Debug.LogError("Move animation");
+
                 _playerAnimator.SetBool("Damage", false);
                 if (data.directionMove.magnitude > 0)
                     _playerAnimator.SetBool("Go", true);
@@ -93,9 +94,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                         {
                             Bullet no = _playerWeapon.Shoot();
                             no.SetDirection(_gun.transform.rotation);
-                            
-                            Debug.LogWarning("Shooting");
-
                         }
                         _playerStats.UseAmmo();
 
@@ -105,16 +103,17 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 }
             }
         }
-
+        
         else if (_playerStats.Dead)
         {
-            Debug.LogWarning("Dead animation");
+            Debug.LogError("Dead animation");
+            _gun.SetActive(false);
             /*
             _playerAnimator.SetBool("Go", false);
             _playerAnimator.SetBool("Idle", false);
             _playerAnimator.SetBool("Damage", false);
-            */
-            _playerAnimator.SetTrigger("death");
+            
+            _playerAnimator.SetTrigger("death");*/
         }
     }
 

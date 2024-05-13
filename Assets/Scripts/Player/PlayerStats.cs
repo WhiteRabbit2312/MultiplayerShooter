@@ -61,8 +61,11 @@ public class PlayerStats : NetworkBehaviour
 
         else
         {
+            Debug.LogError("Dead animation");
             _hp = 0;
+            _playerAnimator.SetTrigger("death");
             Dead = true;
+            
         }
 
 

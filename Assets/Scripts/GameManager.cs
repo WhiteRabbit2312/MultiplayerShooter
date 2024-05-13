@@ -45,7 +45,6 @@ public class GameManager : NetworkBehaviour
 
         if (CheckPlayers())
         {
-            Debug.LogWarning("Invoked");
             OnGameOver?.Invoke();
         }
     }
