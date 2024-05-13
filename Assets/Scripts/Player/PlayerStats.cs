@@ -8,7 +8,7 @@ using TMPro;
 public class PlayerStats : NetworkBehaviour
 {
     [Networked, OnChangedRender(nameof(HPChanged))] private int _hp { get; set; } = 15;
-    private int _ammo { get; set; } = 80;
+    [Networked, OnChangedRender(nameof(AmmoChanged))] private int _ammo { get; set; } = 80;
     [Networked, OnChangedRender(nameof(Test))] public int Kills { get; set; } = 0;
     [Networked] public int Damage { get; set; } = 0;
 
@@ -33,6 +33,14 @@ public class PlayerStats : NetworkBehaviour
         if (HasInputAuthority)
         {
             ShowPlayerStats.OnHPChanged?.Invoke(_hp);
+        }
+    }
+
+    private void AmmoChanged()
+    {
+        if (HasInputAuthority)
+        {
+            ShowPlayerStats.OnAmmoChanged?.Invoke(_ammo);
         }
     }
 
