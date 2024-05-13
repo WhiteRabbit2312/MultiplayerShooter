@@ -24,9 +24,4 @@ public class BigEnemyFactory : NetworkBehaviour, IEnemyFactory
         
         enemySpawned.Init(_basicSpawner.CharacterPosition);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-    }
 }

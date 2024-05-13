@@ -14,26 +14,29 @@ public class Leaderboard : NetworkBehaviour
 
     public void Awake()
     {
-        GameManager.OnGameOver += EnableaderBoard;
         GameManager.OnGameOver += KillOnLeaderboard;
     }
 
-    private void EnableaderBoard()
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, HostMode = RpcHostMode.SourceIsHostPlayer)]
+    public void RPC_SendMessage()
     {
-        _leaderBoard.SetActive(true);
-        //RPC_openLeaderboard();
+        Debug.LogError("Send Message");
+        RPC_RelayMessage();
     }
 
-    [Rpc]
-    private void RPC_openLeaderboard()
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
+    public void RPC_RelayMessage()
     {
-        
+        Debug.LogError("RPC_RelayMessage");
+        _leaderBoard.SetActive(true);
     }
 
   
 
     private void KillOnLeaderboard()
     {
+        Debug.LogError("Kill on leaderboard");
+        RPC_SendMessage();
         _basicspawner = FindObjectOfType<BasicSpawner>();
         int i = 0;
         foreach(var item in _basicspawner.SpawnedCharactersStats)

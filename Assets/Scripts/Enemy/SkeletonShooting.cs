@@ -12,7 +12,7 @@ public class SkeletonShooting : NetworkBehaviour
         Debug.LogWarning("Spawn skeleton bullet");
         if(_timer == _spawnPerSecond)
         {
-            Runner.Spawn(_bullet);
+            Runner.Spawn(_bullet, transform.position);
             _timer = 0;
         }
         _timer++;

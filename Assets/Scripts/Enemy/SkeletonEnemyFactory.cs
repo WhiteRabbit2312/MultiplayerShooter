@@ -18,8 +18,6 @@ public class SkeletonEnemyFactory : NetworkBehaviour, IEnemyFactory
 
     public void SpawnEnemy()
     {
-        if (Runner == null)
-            Debug.LogError("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!");
         Enemy enemySpawned = Runner.Spawn(_spawnedEnemy, _spawnPosition, Quaternion.identity);
         _basicSpawner = GameObject.FindObjectOfType<BasicSpawner>();
         enemySpawned.Init(_basicSpawner.CharacterPosition);

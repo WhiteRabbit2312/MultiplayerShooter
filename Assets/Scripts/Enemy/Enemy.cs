@@ -11,7 +11,6 @@ public class Enemy : NetworkBehaviour
 
     private List<Transform> _directionList = new List<Transform>();
     private Animator _enemyAnimator;
-    private PlayerStats _playerStats;
 
     private int _firstPlayer = 0;
     private int _secondPlayer = 1;
@@ -70,16 +69,16 @@ public class Enemy : NetworkBehaviour
     {
         if (collision.TryGetComponent(out Bullet bullet))
         {
+            Debug.LogError("Bullet hit damage");
             _enemyAnimator.SetTrigger("Damage");
             Health -= bullet.Damage;
-            PlayerStats.OnDamage.Invoke(bullet.Damage);
-
+            PlayerStats stats = bullet.Init;
+            stats.ChangeDamage(bullet.Damage);
             Runner.Despawn(bullet.Object);
 
             if (Health <= 0)
             {
-                PlayerStats.OnKill?.Invoke();
-                //_playerStats.ChangeKills();
+                stats.ChangeKills();
                 Runner.Despawn(Object);
             }
         }
@@ -93,5 +92,10 @@ public class Enemy : NetworkBehaviour
     private void DestroyEnemy()
     {
         Runner.Despawn(Object);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnBreak -= DestroyEnemy;
     }
 }

@@ -10,6 +10,20 @@ public class Bullet : NetworkBehaviour
     public int Damage;
     private int _timer = 0;
     private Quaternion _dir;
+    private PlayerStats _playerStats;
+
+    public PlayerStats Init
+    {
+        get
+        {
+            return _playerStats;
+        }
+        set
+        {
+            _playerStats = value;
+        }
+        
+    }
 
 
     public void SetDirection(Quaternion dir)

@@ -9,7 +9,7 @@ public class PlayerStats : NetworkBehaviour
 {
     [Networked] private int _hp { get; set; } = 15;
     private int _ammo { get; set; } = 80;
-    [Networked] public int Kills { get; set; } = 0;
+    [Networked, OnChangedRender(nameof(Test))] public int Kills { get; set; } = 0;
     [Networked] public int Damage { get; set; } = 0;
 
     [Networked] public bool Dead { get; set; } = false;
@@ -21,7 +21,12 @@ public class PlayerStats : NetworkBehaviour
     private const int AdditionlHP = 4;
     private const int AdditionalAmmo = 80;
 
-
+    private void Test()
+    {
+        if (HasInputAuthority)
+            ShowPlayerStats.OnKillsChanged?.Invoke(Kills);
+        Debug.LogError("ASDAFEKFSEKFN<SEMN");
+    }
     public override void Spawned()
     {
         _playerAnimator = GetComponentInChildren<Animator>();
@@ -89,11 +94,13 @@ public class PlayerStats : NetworkBehaviour
 
     public void ChangeKills()
     {
-        
+        Kills++;
+        Debug.LogWarning("Kill");
         if (HasInputAuthority)
         {
-            Kills++;
+            Debug.LogWarning("Has input authority kill");
             ShowPlayerStats.OnKillsChanged?.Invoke(Kills);
+
         }
     }
 

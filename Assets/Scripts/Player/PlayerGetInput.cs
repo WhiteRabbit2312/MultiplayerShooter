@@ -67,9 +67,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 else _playerAnimator.SetBool("Go", false);
             }
 
-            
-
-
             if (data.directionShoot.magnitude > 0)
             {
                 Vector2 direction = data.directionShoot;

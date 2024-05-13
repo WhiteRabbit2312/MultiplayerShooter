@@ -14,6 +14,7 @@ public class PlayerWeapon : NetworkBehaviour
     private int _weaponCount = 3;
     private SpriteRenderer _playerSprite;
     private Bullet _spawnedBullet;
+    
     [Networked] private int weaponType { get; set; }
 
     private void Awake()
@@ -56,6 +57,8 @@ public class PlayerWeapon : NetworkBehaviour
             {
                 NetworkObject _spawnedBulletNetworkObject = Runner.Spawn(_bullet[_weapon.BulletType()], _weaponPoint.position, Quaternion.identity);
                 _spawnedBullet = _spawnedBulletNetworkObject.GetComponent<Bullet>();
+                PlayerStats playerStats = GetComponentInParent<PlayerStats>();
+                _spawnedBullet.Init = playerStats;
                 _weapon.Fire();
             }
         }
