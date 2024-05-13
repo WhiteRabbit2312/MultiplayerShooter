@@ -17,14 +17,14 @@ public class Leaderboard : NetworkBehaviour
         GameManager.OnGameOver += KillOnLeaderboard;
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority, HostMode = RpcHostMode.SourceIsHostPlayer)]
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsHostPlayer)]
     public void RPC_SendMessage()
     {
         Debug.LogError("Send Message");
         RPC_RelayMessage();
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
     public void RPC_RelayMessage()
     {
         Debug.LogError("RPC_RelayMessage");
