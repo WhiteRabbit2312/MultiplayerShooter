@@ -9,7 +9,7 @@ public class GameManager : NetworkBehaviour
     public static event Action OnStartGame;
     public static event Action OnBreak;
     public static event Action OnGameplay;
-    public static event Action OnGameOver;
+    public static Action OnGameOver;
 
     private BasicSpawner _basicspawner;
 

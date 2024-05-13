@@ -12,7 +12,14 @@ public class WaveManager : NetworkBehaviour
         GameManager.OnBreak += NextWave;
     }
 
-    public void NextWave() => WaveCount++;
+    public void NextWave()
+    {
+        WaveCount++;
+        if(WaveCount == 3)
+        {
+            GameManager.OnGameOver?.Invoke();
+        }
+    }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
     {

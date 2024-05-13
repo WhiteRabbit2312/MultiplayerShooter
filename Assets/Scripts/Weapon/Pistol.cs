@@ -5,7 +5,7 @@ public class Pistol : Weapon
 {
     private int _weaponTypeIdx = 1;
     private int _bulletTypeIdx = 1;
-    private int _bulletAmount = 60;
+    private int _bulletAmount = 80;
 
     public override int Bullets
     {
