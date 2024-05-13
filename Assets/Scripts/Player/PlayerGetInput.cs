@@ -41,7 +41,7 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
     public override void FixedUpdateNetwork()
     {
-        if (GetInput(out NetworkInputData data) && !_playerHealth.GetDead())
+        if (GetInput(out NetworkInputData data) && !_playerStats.Dead)
         {
             transform.Translate(data.directionMove * _speed);
             transform.position = new Vector3(Mathf.Clamp(transform.position.x , -_maxX, _maxX), Mathf.Clamp(transform.position.y , -_maxY, _maxY), 0);
@@ -52,13 +52,14 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 {
                     _timer = 0;
                     _playerAnimator.SetBool("Damage", true);
-                    _playerStats.GetDamage(1);
+                    _playerStats.GetDamage(_enemyDamage);
                 }
                 _timer++;
             }
 
             else
             {
+                _playerAnimator.SetBool("Damage", false);
                 if (data.directionMove.magnitude > 0)
                     _playerAnimator.SetBool("Go", true);
 
@@ -106,6 +107,17 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
                 }
             }
+        }
+
+        else if (_playerStats.Dead)
+        {
+            Debug.LogWarning("Dead animation");
+            /*
+            _playerAnimator.SetBool("Go", false);
+            _playerAnimator.SetBool("Idle", false);
+            _playerAnimator.SetBool("Damage", false);
+            */
+            _playerAnimator.SetTrigger("death");
         }
     }
 

@@ -11,6 +11,7 @@ public class Enemy : NetworkBehaviour
 
     private List<Transform> _directionList = new List<Transform>();
     private Animator _enemyAnimator;
+    private PlayerStats _playerStats;
 
     private int _firstPlayer = 0;
     private int _secondPlayer = 1;
@@ -78,6 +79,7 @@ public class Enemy : NetworkBehaviour
             if (Health <= 0)
             {
                 PlayerStats.OnKill?.Invoke();
+                //_playerStats.ChangeKills();
                 Runner.Despawn(Object);
             }
         }

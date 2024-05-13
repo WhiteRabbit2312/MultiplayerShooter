@@ -20,13 +20,14 @@ public class Leaderboard : NetworkBehaviour
 
     private void EnableaderBoard()
     {
-        RPC_openLeaderboard();
+        _leaderBoard.SetActive(true);
+        //RPC_openLeaderboard();
     }
 
     [Rpc]
     private void RPC_openLeaderboard()
     {
-        _leaderBoard.SetActive(true);
+        
     }
 
   

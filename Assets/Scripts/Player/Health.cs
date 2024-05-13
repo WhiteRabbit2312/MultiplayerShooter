@@ -11,9 +11,12 @@ public class Health : MonoBehaviour
 
     public void PlayerDamaged(int damage)
     {
+        Debug.LogWarning("Player got damage" + _hp);
         _hp -= damage;
-        if (_hp == 0)
+        if (_hp <= 0)
         {
+            _hp = 0;
+            Debug.LogWarning("Dead");
             IsDead = true;
         }
     }

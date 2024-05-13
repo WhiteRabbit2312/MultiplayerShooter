@@ -7,12 +7,12 @@ using TMPro;
 
 public class PlayerStats : NetworkBehaviour
 {
-    private int _hp = 15;
-    private int _ammo = 80;
-    public int Kills { get; set; } = 0;
-    public int Damage { get; set; } = 0;
+    [Networked] private int _hp { get; set; } = 15;
+    private int _ammo { get; set; } = 80;
+    [Networked] public int Kills { get; set; } = 0;
+    [Networked] public int Damage { get; set; } = 0;
 
-    [HideInInspector] public bool Dead = false;
+    [Networked] public bool Dead { get; set; } = false;
     public static Action OnKill;
     public static Action<int> OnDamage;
     public static Action<int> OnAmmo;
@@ -35,19 +35,18 @@ public class PlayerStats : NetworkBehaviour
         if (_hp > 0)
         {
             _hp -= change;
-            //_playerAnimator.SetBool("Damage", true);
         }
 
         else
         {
             _hp = 0;
+            Dead = true;
         }
 
 
         if (HasInputAuthority)
         {
             ShowPlayerStats.OnHPChanged?.Invoke(_hp);
-
         }
     }
 
@@ -79,7 +78,6 @@ public class PlayerStats : NetworkBehaviour
 
     public void TakeAmmoBox()
     {
-
         _ammo = AdditionalAmmo;
 
 
