@@ -29,6 +29,15 @@ public class Leaderboard : NetworkBehaviour
     {
         Debug.LogError("RPC_RelayMessage");
         _leaderBoard.SetActive(true);
+
+        _basicspawner = FindObjectOfType<BasicSpawner>();
+        int i = 0;
+        foreach (var item in _basicspawner.SpawnedCharactersStats)
+        {
+            _kills[i].text = "Kills " + item.Value.Kills.ToString();
+            _damage[i].text = "Damage " + item.Value.Damage.ToString();
+            i++;
+        }
     }
 
   
@@ -37,13 +46,6 @@ public class Leaderboard : NetworkBehaviour
     {
         Debug.LogError("Kill on leaderboard");
         RPC_SendMessage();
-        _basicspawner = FindObjectOfType<BasicSpawner>();
-        int i = 0;
-        foreach(var item in _basicspawner.SpawnedCharactersStats)
-        {
-            _kills[i].text = "Kills " + item.Value.Kills.ToString();
-            _damage[i].text = "Damage " + item.Value.Damage.ToString();
-            i++;
-        }
+        
     }
 }

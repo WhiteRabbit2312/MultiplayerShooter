@@ -8,7 +8,7 @@ public class AidKit : NetworkBehaviour, IItemEffect
 {
     public void EnableEffect(PlayerWeapon playerWeapon, PlayerStats playerStats)
     {
-        //playerStats.TakeAidKit();
+        playerStats.TakeAidKit();
         Runner.Despawn(Object);
     }
 }
