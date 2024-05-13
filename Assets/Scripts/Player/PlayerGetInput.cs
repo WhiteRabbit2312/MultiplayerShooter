@@ -106,14 +106,7 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
         
         else if (_playerStats.Dead)
         {
-            Debug.LogError("Dead animation");
             _gun.SetActive(false);
-            /*
-            _playerAnimator.SetBool("Go", false);
-            _playerAnimator.SetBool("Idle", false);
-            _playerAnimator.SetBool("Damage", false);
-            
-            _playerAnimator.SetTrigger("death");*/
         }
     }
 
@@ -125,6 +118,11 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
             _enemyDamage = enemy.Damage;
         }
             
+        if(collision.gameObject.tag == "SkeletonEnemy")
+        {
+            _playerAnimator.SetBool("Damage", true);
+            _playerStats.GetDamage(1);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

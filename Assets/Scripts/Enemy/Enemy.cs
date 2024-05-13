@@ -57,9 +57,18 @@ public class Enemy : NetworkBehaviour
         {
             if (listDistance[_firstPlayer] < listDistance[_secondPlayer])
             {
-                return _directionList[_firstPlayer];
+                if (!_directionList[_firstPlayer].GetComponent<PlayerStats>().Dead)
+                    return _directionList[_firstPlayer];
+
+                else return _directionList[_secondPlayer];
             }
-            else return _directionList[_secondPlayer];
+            else
+            {
+                if (!_directionList[_secondPlayer].GetComponent<PlayerStats>().Dead)
+                    return _directionList[_secondPlayer];
+
+                else return _directionList[_firstPlayer];
+            }
         }
 
         else return _directionList[_firstPlayer];

@@ -43,7 +43,7 @@ public class PlayerHealth : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.LogWarning("Player damaged");
-        if (collision.TryGetComponent(out Enemy enemy))
+        if (collision.TryGetComponent(out Enemy enemy) || collision.gameObject.tag == "SkeletonEnemy")
         {
             Debug.LogWarning("Player damaged try component");
             _health.PlayerDamaged(enemy.Damage);

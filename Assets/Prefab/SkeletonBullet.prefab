@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4795521433561535819}
   - component: {fileID: 4021443128615473874}
   - component: {fileID: 3162598609285814073}
+  - component: {fileID: 796763941577343031}
   m_Layer: 0
   m_Name: SkeletonBullet
   m_TagString: SkeletonEnemy
@@ -136,10 +137,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 1270295000
   ObjectInterest: 1
-  Flags: 1
+  Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 3162598609285814073}
+  - {fileID: 796763941577343031}
 --- !u!114 &3162598609285814073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,3 +158,15 @@ MonoBehaviour:
   SyncParent: 0
   _autoAOIOverride: 1
   DisableSharedModeInterpolation: 0
+--- !u!114 &796763941577343031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476877379801275716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fafa2f4cab4fdd43953863e8dced752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

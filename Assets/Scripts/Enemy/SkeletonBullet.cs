@@ -5,14 +5,39 @@ using Fusion;
 
 public class SkeletonBullet : NetworkBehaviour
 {
-    private BasicSpawner _basicSpawner;
-    public override void Spawned()
+    private Vector3 _direction;
+    private int _lifeTime = 150;
+    private int _timer = 0;
+
+    public void Init(Transform transform)
     {
-        _basicSpawner = GameObject.FindObjectOfType<BasicSpawner>();
+        _direction = transform.position;
     }
 
     public override void FixedUpdateNetwork()
     {
-        transform.Translate(_basicSpawner.CharacterPosition[0].position * Time.deltaTime);
+        Vector3 bulletDirection = _direction - transform.position;
+        bulletDirection.Normalize();
+        transform.Translate(bulletDirection * Runner.DeltaTime * 10f);
+
+        if (transform.position == bulletDirection)
+        {
+            Runner.Despawn(Object);
+        }
+
+        if (_timer == _lifeTime)
+        {
+            _timer = 0;
+            Runner.Despawn(Object);
+        }
+        _timer++;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            Runner.Despawn(Object);
+        }
     }
 }
