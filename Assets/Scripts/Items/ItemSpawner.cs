@@ -32,16 +32,22 @@ public class ItemSpawner : NetworkBehaviour
             {
                 int waveIdx = _waveManager.WaveCount;
                 int randomItem = Random.Range(0, _wave.waveStat[waveIdx].Item);
-                int randomSpawnPoint;
-                do
+
+
+
+                for(int i = 0; i < _spawnPoint.Length; ++i)
                 {
-                    randomSpawnPoint = Random.Range(0, _spawnPoint.Length);
-                } while (_spawnPoint[randomSpawnPoint].GetComponent<SpawnPointState>().State);
+                    if (!_spawnPoint[i].GetComponent<SpawnPointState>().State)
+                    {
+                        _spawnPoint[i].GetComponent<SpawnPointState>().State = true;
+                        Runner.Spawn(_item[randomItem], _spawnPoint[i].position, Quaternion.identity);
+                        Debug.LogError("Item type" + randomItem);
+                        _timer = 0;
+                        break;
+                    }
+                }
 
-
-                Runner.Spawn(_item[randomItem], _spawnPoint[randomSpawnPoint].position, Quaternion.identity);
-
-                _timer = 0;
+                
             }
         }
     }

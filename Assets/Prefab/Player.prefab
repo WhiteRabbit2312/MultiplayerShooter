@@ -477,6 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Kills: 0
   _Damage: 0
+  gun: {fileID: 8872959349416933504}
   _Dead: 0
 --- !u!114 &5037077944631607452
 MonoBehaviour:

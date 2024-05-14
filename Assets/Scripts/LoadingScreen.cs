@@ -34,8 +34,20 @@ public class LoadingScreen : NetworkBehaviour
 
     private IEnumerator DisableLoadScreen()
     {
-        _loadingSession.text = "Loading session...";
-        yield return new WaitForSeconds(5f);
+        RPC_SendMessageChhangeText();
+         yield return new WaitForSeconds(5f);
         RPC_RelayMessagePanel();
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsHostPlayer)]
+    public void RPC_SendMessageChhangeText()
+    {
+        RPC_RelayMessageChangeText();
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
+    public void RPC_RelayMessageChangeText()
+    {
+        _loadingSession.text = "Loading session...";
     }
 }

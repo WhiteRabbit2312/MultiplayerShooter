@@ -6,12 +6,13 @@ using Fusion;
 public class SkeletonBullet : NetworkBehaviour
 {
     private Vector3 _direction;
-    private int _lifeTime = 150;
+    private int _lifeTime = 800;
     private int _timer = 0;
 
     public void Init(Transform transform)
     {
-        _direction = transform.position;
+        if(!transform.gameObject.GetComponent<PlayerStats>().Dead)
+            _direction = transform.position;
     }
 
     public override void FixedUpdateNetwork()
@@ -19,11 +20,6 @@ public class SkeletonBullet : NetworkBehaviour
         Vector3 bulletDirection = _direction - transform.position;
         bulletDirection.Normalize();
         transform.Translate(bulletDirection * Runner.DeltaTime * 10f);
-
-        if (transform.position == bulletDirection)
-        {
-            Runner.Despawn(Object);
-        }
 
         if (_timer == _lifeTime)
         {

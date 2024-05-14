@@ -12,6 +12,8 @@ public class PlayerStats : NetworkBehaviour
     [Networked, OnChangedRender(nameof(Test))] public int Kills { get; set; } = 0;
     [Networked] public int Damage { get; set; } = 0;
 
+    [SerializeField] private GameObject gun;
+
     [Networked] public bool Dead { get; set; } = false;
     public static Action OnKill;
     public static Action<int> OnDamage;
@@ -25,7 +27,6 @@ public class PlayerStats : NetworkBehaviour
     {
         if (HasInputAuthority)
             ShowPlayerStats.OnKillsChanged?.Invoke(Kills);
-        Debug.LogError("ASDAFEKFSEKFN<SEMN");
     }
 
     private void HPChanged()
@@ -34,6 +35,19 @@ public class PlayerStats : NetworkBehaviour
         {
             ShowPlayerStats.OnHPChanged?.Invoke(_hp);
         }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsHostPlayer)]
+    public void RPC_SendMessagePanel()
+    {
+        RPC_RelayMessagePanel();
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
+    public void RPC_RelayMessagePanel()
+    {
+        gun.SetActive(false);
+        _playerAnimator.SetTrigger("death");
     }
 
     private void AmmoChanged()
@@ -59,13 +73,13 @@ public class PlayerStats : NetworkBehaviour
             _hp -= change;
         }
 
-        else
+        if(_hp <= 0)
         {
-            Debug.LogError("Dead animation");
-            _hp = 0;
-            _playerAnimator.SetTrigger("death");
-            Dead = true;
             
+            _hp = 0;
+            
+            Dead = true;
+            RPC_SendMessagePanel();
         }
 
 

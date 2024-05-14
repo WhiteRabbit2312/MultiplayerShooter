@@ -45,7 +45,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
             if (_damaged)
             {
-                Debug.LogError("Damaged animation");
                 if (_timer == _damagePerTime)
                 {
                     _timer = 0;
@@ -57,7 +56,6 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
 
             else
             {
-                Debug.LogError("Move animation");
 
                 _playerAnimator.SetBool("Damage", false);
                 if (data.directionMove.magnitude > 0)
@@ -75,14 +73,14 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 
                 if(_gun.transform.rotation.z >= 0.7f || _gun.transform.rotation.z <= -0.7f)
                 {
-                    _playerSprite.flipX = true;
-                    _gun.GetComponent<SpriteRenderer>().flipY = true;
+                    
+                    RPC_SendMessageFlipRight();
                 }
 
                 else
                 {
-                    _gun.GetComponent<SpriteRenderer>().flipY = false;
-                    _playerSprite.flipX = false;
+                    RPC_SendMessageFlipLeft();
+                   
                 }
                 
                 _coolDown++;
@@ -104,11 +102,32 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 }
             }
         }
-        
-        else if (_playerStats.Dead)
-        {
-            _gun.SetActive(false);
-        }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsHostPlayer)]
+    public void RPC_SendMessageFlipRight()
+    {
+        RPC_GunFlipRight();
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
+    public void RPC_GunFlipRight()
+    {
+        _playerSprite.flipX = true;
+        _gun.GetComponent<SpriteRenderer>().flipY = true;
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsHostPlayer)]
+    public void RPC_SendMessageFlipLeft()
+    {
+        RPC_GunFlipLeft();
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All, HostMode = RpcHostMode.SourceIsServer)]
+    public void RPC_GunFlipLeft()
+    {
+        _gun.GetComponent<SpriteRenderer>().flipY = false;
+        _playerSprite.flipX = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

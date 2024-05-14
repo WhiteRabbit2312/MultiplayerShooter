@@ -5,7 +5,13 @@ using Fusion;
 
 public class SpawnPointState : NetworkBehaviour
 {
-    private bool _spawnPointState;
+    private bool _spawnPointState = false;
+
+    public override void Spawned()
+    {
+        State = false;
+    }
+
     public bool State
     {
         get
@@ -23,7 +29,9 @@ public class SpawnPointState : NetworkBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            State = false;
+            Debug.LogError("Player took item");
+            _spawnPointState = false;
+            State = _spawnPointState;
         }
     }
 }
