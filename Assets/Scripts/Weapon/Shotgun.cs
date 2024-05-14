@@ -39,7 +39,7 @@ public class Shotgun : Weapon
 
     public override void TakeBullet()
     {
-        _bulletAmount = 70;
+        _bulletAmount = 80;
     }
 }
 

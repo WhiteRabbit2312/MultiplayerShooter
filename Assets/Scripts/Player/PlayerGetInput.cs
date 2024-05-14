@@ -76,10 +76,12 @@ public class PlayerGetInput : NetworkBehaviour //TODO: Player Movement
                 if(_gun.transform.rotation.z >= 0.7f || _gun.transform.rotation.z <= -0.7f)
                 {
                     _playerSprite.flipX = true;
+                    _gun.GetComponent<SpriteRenderer>().flipY = true;
                 }
 
                 else
                 {
+                    _gun.GetComponent<SpriteRenderer>().flipY = false;
                     _playerSprite.flipX = false;
                 }
                 

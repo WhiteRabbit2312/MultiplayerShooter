@@ -38,7 +38,7 @@ public class Pistol : Weapon
 
     public override void TakeBullet()
     {
-        _bulletAmount = 60;
+        _bulletAmount = 80;
     }
 }
 
